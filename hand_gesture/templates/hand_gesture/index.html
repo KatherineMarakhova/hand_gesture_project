@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'main/layout.html' %}
+
+{% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hand Gesture Recognition</title>
@@ -16,8 +16,9 @@
             left: 0;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
     <h1>Hand Gesture Recognition</h1>
     <div id="container">
         <video id="video" width="640" height="480" autoplay></video>
@@ -81,5 +82,5 @@
         });
         camera.start();
     </script>
-</body>
-</html>
+
+{% endblock %}
