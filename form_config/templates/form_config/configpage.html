@@ -1,0 +1,53 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block title %}Config page{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'form_config/css/form_config.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="features">
+        <h1> ВЫБЕРИТЕ ПАРАМЕТРЫ ДЛЯ УПРАЖНЕНИЙ</h1>
+        <form action="" method="POST" id="form-create-config">
+            {% csrf_token %}
+            <h2>Количество задействованных пальцев</h2>
+            <div class="radio-blocks">
+                <input type="radio" id="one" name="fingers" value="1" required>
+                <label for="one">Один</label>
+            </div>
+
+            <div class="radio-blocks">
+                <input type="radio" id="two" name="fingers" value="2" required>
+                <label for="two">Два</label>
+            </div>
+
+            <div class="radio-blocks">
+                <input type="radio" id="some" name="fingers" value="5" required>
+                <label for="some">Несколько / комбинированно</label>
+            </div>
+
+            <h2>Режим выполнения упражнения</h2>
+            <div class="radio-blocks">
+                <input type="radio" id="standard" name="mode" value="std" required>
+                <label for="standard">Стандарт(по порядку)</label>
+            </div>
+
+            <div class="radio-blocks">
+                <input type="radio" id="random" name="mode" value="rnd" required>
+                <label for="random">Случайно</label>
+            </div>
+
+            <h2>Длительность занятия</h2>
+            <div>
+                <input type="number" name="exercises" required>
+                <label>жест(-ов)</label>
+            </div>
+            <br>
+            <input onclick="window.location.href = {% url 'ex_gesture_page' %};" type="submit" value="Submit request" />
+        </form>
+
+        </form>
+        <script src="{% static 'form_config/js/index.js'%}"></script>
+    </div>
+{% endblock %}

@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('main.urls')),
-    path('hand_gestures/', include('hand_gesture.urls')),
-    path('ex_config/', include('ex_config.urls')),
+    path('hand_gesture/', include('hand_gesture.urls')),
+    path('form_config/', include('form_config.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

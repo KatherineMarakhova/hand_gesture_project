@@ -32,9 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "main",
+    "form_config",
     "hand_gesture",
-    "ex_config",
-    "exercise",
     "fontawesomefree",
     "django.contrib.admin",
     "django.contrib.auth",

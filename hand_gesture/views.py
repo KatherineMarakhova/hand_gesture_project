@@ -1,4 +1,5 @@
 from django.shortcuts import render
 
-def index(request):
-    return render(request, 'hand_gesture/index.html')
+
+def ex_gesture(request):
+    return render(request, 'hand_gesture/ex_gesture.html')
