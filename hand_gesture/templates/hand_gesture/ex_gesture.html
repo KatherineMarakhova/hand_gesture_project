@@ -8,7 +8,15 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Hand Gesture Recognition</h1>
+    <h1>Упражнения на развитие моторики</h1>
+
+    <div>
+        <p>Список упражнений:</p>
+        <p id="output"></p>
+        <p id="nextval"></p>
+        <p id="result"></p>
+    </div>
+
     <div id="container">
         <canvas id="canvas" width="640" height="480">
             <video id="video" width="640" height="480" autoplay></video>

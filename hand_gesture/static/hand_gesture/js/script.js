@@ -95,9 +95,13 @@ console.log("exercises :", exercises);
 console.log("fingers :", fingers);
 console.log("mode :", mode);
 
-for(let i=0; i<exercises; i++){
-    console.log(exlist[i]);
-}
+const outputDiv = document.getElementById('output');
+outputDiv.innerHTML = exlist.slice(0, exercises).join(', ');
+
+const outputDivNextval = document.getElementById('nextval');
+const outputDivResult = document.getElementById('result');
+
+outputDivNextval.innerHTML = "ПЕРВОЕ УПРАЖНЕНИЕ :" + exlist[0];
 
 let iter = 0;
 hands.onResults(onResults);
@@ -122,18 +126,21 @@ function onResults(results) {
           2: landmarks[14].y > landmarks[16].y,   //ring    00010
           1: landmarks[18].y > landmarks[20].y    //pinky   00001
       };
-
       let sum = get_sum(isOpenFingers);
       if(sum == exlist[iter] && iter<=exercises){
+          outputDivResult.innerHTML = "ПОЛУЧИЛОСЬ!!!!";
           console.log("DONE!!!!");
           iter++;
           if (iter == exercises){
+            outputDivResult.innerHTML = "ТРЕНИРОВКА ОКОНЧЕНА!!";
             console.log("FINISH!!!!!");
             exlist = [];
             iter = 0;
           }
           else{
+            outputDivNextval.innerHTML = "СЛЕДУЮЩЕЕ УПРАЖНЕНИЕ :" + exlist[iter];
             console.log("NEXT EX IS :", exlist[iter]);
+            outputDivResult.innerHTML = " ";
           }
      }
     }
