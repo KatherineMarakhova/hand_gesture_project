@@ -44,9 +44,7 @@
                 <label>жест(-ов)</label>
             </div>
             <br>
-            <input onclick="window.location.href = {% url 'ex_gesture_page' %};" type="submit" value="Submit request" />
-        </form>
-
+            <input class="btn btn-warning" onclick="window.location.href = {% url 'ex_gesture_page' %};" type="submit" value="Начать!" />
         </form>
         <script src="{% static 'form_config/js/index.js'%}"></script>
     </div>

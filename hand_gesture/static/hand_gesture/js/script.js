@@ -42,7 +42,7 @@ switch (fingers){
             case "std":
                 exlist.push(...one_fingers_list);
                 if (exercises > 10){
-                    for(let i=0; i<Math.floor(exercises/10+1); i++){
+                    for(let i=0; i<Math.floor(exercises/10); i++){
                         exlist.push(...one_fingers_list);
                     }
                 }
@@ -54,12 +54,13 @@ switch (fingers){
                 }
                 break;
         }
+        break;
     case 2:
         switch (mode){
             case "std":
                 exlist.push(...two_fingers_list);
                 if (exercises > 10){
-                    for(let i=0; i<Math.floor(exercises/10+1); i++){
+                    for(let i=0; i<Math.floor(exercises/10); i++){
                         exlist.push(two_fingers_list);
                     }
                 }
@@ -71,12 +72,13 @@ switch (fingers){
                 }
                 break;
         }
+        break;
     case 5:
         switch (mode){
             case "std":
                 exlist.push(...more_fingers_list);
                 if (exercises > 10){
-                    for(let i=0; i<Math.floor(exercises/10+2); i++){
+                    for(let i=0; i<Math.floor(exercises/10); i++){
                         exlist.push(...more_fingers_list);
                     }
                 }
@@ -85,23 +87,26 @@ switch (fingers){
                 for (let i = 0; i < exercises; i++) {
                     exlist.push(Math.floor(Math.random() * 32));
                 }
-
                 break;
         }
+        break;
 }
-
-console.log("this is");
-console.log("exercises :", exercises);
-console.log("fingers :", fingers);
-console.log("mode :", mode);
 
 const outputDiv = document.getElementById('output');
 outputDiv.innerHTML = exlist.slice(0, exercises).join(', ');
 
 const outputDivNextval = document.getElementById('nextval');
+const outputDivNextimg = document.getElementById('gesture_image');
 const outputDivResult = document.getElementById('result');
 
-outputDivNextval.innerHTML = "ПЕРВОЕ УПРАЖНЕНИЕ :" + exlist[0];
+outputDivNextval.innerHTML = "Первое упражнение : ";
+
+const imagePath = 'http://127.0.0.1:8000/static/hand_gesture/img/'+exlist[0]+'.jpg';
+const imageContainer = document.getElementById('image-container');
+const img = document.createElement('img');
+img.src = imagePath;
+img.id = 'hand_image';
+imageContainer.appendChild(img);
 
 let iter = 0;
 hands.onResults(onResults);
@@ -126,21 +131,32 @@ function onResults(results) {
           2: landmarks[14].y > landmarks[16].y,   //ring    00010
           1: landmarks[18].y > landmarks[20].y    //pinky   00001
       };
+
       let sum = get_sum(isOpenFingers);
       if(sum == exlist[iter] && iter<=exercises){
-          outputDivResult.innerHTML = "ПОЛУЧИЛОСЬ!!!!";
-          console.log("DONE!!!!");
+          outputDivResult.innerHTML = "Упражнение закончено!";
           iter++;
           if (iter == exercises){
-            outputDivResult.innerHTML = "ТРЕНИРОВКА ОКОНЧЕНА!!";
-            console.log("FINISH!!!!!");
+            outputDivResult.innerHTML = "Тренировка окончена!!!";
             exlist = [];
             iter = 0;
           }
           else{
-            outputDivNextval.innerHTML = "СЛЕДУЮЩЕЕ УПРАЖНЕНИЕ :" + exlist[iter];
-            console.log("NEXT EX IS :", exlist[iter]);
+            let binn = exlist[iter].toString(2);
+            binn = "00000".substr(binn.length) + binn;
+            outputDivNextval.innerHTML = "Следующее упражнение : ";
+
             outputDivResult.innerHTML = " ";
+
+            let imagePath = 'http://127.0.0.1:8000/static/hand_gesture/img/'+exlist[iter]+'.jpg';
+            const imageContainer = document.getElementById('image-container');
+            const img = document.createElement('img');
+            img.src = imagePath;
+            img.id = 'hand_image';
+
+            const old_img = document.getElementById('hand_image');
+            imageContainer.replaceChild(img, old_img);
+
           }
      }
     }
@@ -148,6 +164,7 @@ function onResults(results) {
   canvasCtx.restore();
 }
 
+videoElement.style.transform = 'scaleX(-1)';
 const camera = new Camera(videoElement, {
   onFrame: async () => {
     await hands.send({image: videoElement});

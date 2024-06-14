@@ -13,19 +13,18 @@
     {% endblock %}
 </head>
 <body>
-    <div class="container"></div>
-        <aside>
-            <span class="logo">Твоя моторика</span>
-            <ul>
-                <a href="{% url 'homepage' %}"><li><i class="fa-solid fa-house"></i> Главная </li></a>
-                <a href="{% url 'aboutpage' %}"><li><i class="fa-solid fa-people-roof"></i> О нас </li></a>
-                <a href=""><li><i class="fa-solid fa-address-card"></i> Контакты </li></a>
-            </ul>
-        </aside>
-        <main>
+    <aside>
+        <span class="logo">Твоя моторика</span>
+        <ul>
+            <a href="{% url 'homepage' %}"><li><i class="fa-solid fa-house"></i> Главная </li></a>
+            <a href="{% url 'aboutpage' %}"><li><i class="fa-solid fa-people-roof"></i> О нас </li></a>
+            <a href=""><li><i class="fa-solid fa-address-card"></i> Контакты </li></a>
+        </ul>
+    </aside>
+
+    <main>
             {% block content %}
             {% endblock %}
         </main>
-    </div>
 </body>
 </html>

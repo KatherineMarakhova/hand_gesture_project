@@ -7,8 +7,6 @@ function retrieveFormValue(event){
     const entries = Object.fromEntries(formData.entries());
     const values = Object.values(formData.values())
 
-    console.log(">>", entries);
-
     localStorage.setItem('fingers', entries['fingers']);
     localStorage.setItem('mode', entries['mode']);
     localStorage.setItem('exercises', entries['exercises']);
