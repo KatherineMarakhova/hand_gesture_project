@@ -1,33 +1,33 @@
 {% extends 'main/layout.html' %}
 {% load static %}
 {% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hand Gesture Recognition</title>
-    <link rel="stylesheet" href="{% static 'hand_gesture/css/style.css' %}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hand Gesture Recognition</title>
+<link rel="stylesheet" href="{% static 'hand_gesture/css/style.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h2>Упражнения на развитие моторики</h2>
-    <div class="content">
-        <div class="ex-list">
-            <p id="exslist">Список упражнений :</p>
-            <p id="output"></p>
-            <p id="nextval"></p>
-            <div id="image-container"></div>
-            <p id="result"></p>
-        </div>
-
-        <div id="container">
-            <canvas id="canvas" width="640" height="480">
-                <video id="video" autoplay></video>
-            </canvas>
-        </div>
-        <p id="gesture"></p>
-
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-        <script src="{% static 'hand_gesture/js/script.js' %}"></script>
+<h2>Упражнения на развитие моторики</h2>
+<div class="content">
+    <div class="ex-list">
+        <p id="exslist">Список упражнений :</p>
+        <p id="output"></p>
+        <p id="nextval"></p>
+        <div id="image-container"></div>
+        <p id="result"></p>
     </div>
+
+    <div id="container">
+        <canvas id="canvas" width="640" height="480">
+            <video id="video" autoplay></video>
+        </canvas>
+    </div>
+    <p id="gesture"></p>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="{% static 'hand_gesture/js/script.js' %}"></script>
+</div>
 {% endblock %}

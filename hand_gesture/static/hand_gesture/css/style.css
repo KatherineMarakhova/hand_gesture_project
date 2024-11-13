@@ -33,10 +33,10 @@ main .features p{
 }
 
 .ex-list, .image-container {
-  flex: 1;
-  margin-top: 20px;
-  padding: 15px;
-  background: lightgray;
+    flex: 1;
+    margin-top: 20px;
+    padding: 15px;
+    background: lightgray;
 }
 
 h2{
@@ -63,4 +63,9 @@ div.image-container{
     right: 0;
     width: 50%; /* Задайте ширину изображения */
     height: auto; /* Сохраните пропорции изображения */
+}
+
+body, aside{
+    min-block-size: 100px;
+    writing-mode: horizontal-tb;
 }
