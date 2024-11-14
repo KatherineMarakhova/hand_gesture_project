@@ -1,8 +1,10 @@
-# Licensed under AGPLv3+
-
 import configparser
 import platformdirs
 import os
+import sys
+import cv2
+import numpy
+from datetime import datetime, timedelta
 
 from lib.i18n import _
 
@@ -156,4 +158,91 @@ def writecfg(cfg) -> None:
         print(_("Writing to the config file ") + configname)
         config.write(configfile)
 
-# vi: tabstop=4 shiftwidth=4 expandtab
+def writestat(cfg, i, scores) -> None:
+    now = datetime.now()
+    print(f'{now.strftime("%H:%M:%S")} ', end='')
+
+    # Print scores
+    emax = numpy.argmax(scores)
+    print(f'[{i}]: {emotions[emax]}; ', end='')
+    for e in range(len(emotions)):
+        print(f'{emotions[e]}: {scores[e]:4.1f}', end='')
+        if e < (len(emotions) - 1):
+            print(f', ', end='')
+        else:
+            print('')
+
+    # Write to logs
+    if cfg.writestat:
+        if not os.path.exists(platformdirs.user_log_dir(ANAME)):
+            os.makedirs(platformdirs.user_log_dir(ANAME))
+        fp = open(platformdirs.user_log_dir(ANAME) + "/" + now.strftime("%Y.%m.%d"), 'a')
+        str = now.strftime("%H:%M:%S")
+        for e in range(len(emotions)):
+            str = str + " %4.1lf" % (scores[e])
+        str = str + "\n"
+        fp.write(str)
+        fp.close()
+
+
+#  Parameters:  configuration, scores, warning was set before
+#               waring action was active before, last waring was turned on time
+def warn_actions(cfg, scores, wws, wwact, wstime):
+    # Check warning state and notify user
+    wname = "Face warn"
+    ws = False  # Warning state flag
+    for e in range(len(emotions)):
+        if cfg.wminen[e] and scores[e] < cfg.wmin[e]:
+            ws = True
+            break
+        if cfg.wmaxen[e] and scores[e] > cfg.wmax[e]:
+            ws = True
+            break
+
+    if wws is False and ws is True:  # If warning state is switched on
+        wstime = datetime.now()  # Remember time
+
+    # Set/reset warning action depending on warning state and it's timeout
+    if ws and wstime + timedelta(seconds=cfg.wdelay) <= datetime.now():
+        wact = True
+    else:
+        wact = False
+
+    try:
+        # Show warning window in case of:
+        #     it's warning condition, it's on in cfg, has no warning window yet
+        if wact and cfg.showwarn and not wwact:
+            # Use OpenCV to avoid excess dependencies
+
+            w = cfg.wsize
+            h = cfg.wsize
+            if sys.platform == 'darwin' and w < 200:
+                # Mac OS doesn't allow windows width less than 200, so...
+                w = 200
+
+            wimg = numpy.zeros((h, w, 3), numpy.uint8)
+            wimg = cv2.rectangle(wimg, (0, 0), (w - 1, h - 1), cfg.wcolor[::-1], -1)
+            font = cv2.FONT_HERSHEY_SIMPLEX
+            text = "!"
+            linew = int(h / 32)
+            textsize = cv2.getTextSize(text, font, 1, linew)[0]
+            textx = int((wimg.shape[1] - textsize[0]) / 2)
+            texty = int((wimg.shape[0] + textsize[1]) / 2)
+            cv2.putText(wimg, "!", (textx, texty), font, 1, (0, 0, 0), linew)
+            cv2.namedWindow(wname, cv2.WINDOW_NORMAL | cv2.WINDOW_FREERATIO | cv2.WINDOW_GUI_NORMAL)
+            cv2.resizeWindow(wname, w, h)
+            cv2.moveWindow(wname, cfg.wpos[0], cfg.wpos[1])
+            cv2.setWindowProperty(wname, cv2.WND_PROP_TOPMOST, 1)
+            cv2.imshow(wname, wimg)
+        # Destroy warning window in case of:
+        #     it's not to be shown (cfg and condition) and has previous window
+        elif not (cfg.showwarn and wact) and wwact:
+            cv2.destroyWindow(wname)
+
+        if wact and cfg.beepwarn:
+            # Generate system beep
+            print("\a", end="")
+    except Exception as exc:
+        print(f'Warning: {exc}')
+
+    return ws, wact, wstime

@@ -20,7 +20,9 @@
 
     <div id="container">
         <canvas id="canvas" width="640" height="480">
-            <video id="video" autoplay></video>
+            <video id="video" autoplay>
+                <source src="{% url 'video_feed' %}">
+            </video>
         </canvas>
     </div>
     <p id="gesture"></p>
