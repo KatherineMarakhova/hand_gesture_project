@@ -190,7 +190,7 @@ def writestat(cfg, i, scores) -> None:
 def warn_actions(cfg, scores, wws, wwact, wstime):
     # Check warning state and notify user
     wname = "Face warn"
-    ws = False  # Warning state flag
+    ws = True  # Warning state flag
     for e in range(len(emotions)):
         if cfg.wminen[e] and scores[e] < cfg.wmin[e]:
             ws = True

@@ -11,17 +11,30 @@
         <h1> ВЫБЕРИТЕ ПАРАМЕТРЫ ДЛЯ УПРАЖНЕНИЙ</h1>
         <form action="" method="POST" id="form-create-config">
             {% csrf_token %}
+
+            <h2>Выбор руки</h2>
+            <div class="radio-blocks">
+                <input type="radio" id="left" name="hands" value="Left" required>
+                <label for="one">Левая</label>
+            </div>
+            <div class="radio-blocks">
+                <input type="radio" id="right" name="hands" value="Right" required>
+                <label for="two">Правая</label>
+            </div>
+            <div class="radio-blocks">
+                <input type="radio" id="multi" name="hands" value="Multi" required>
+                <label for="some">Обе руки</label>
+            </div>
+
             <h2>Количество задействованных пальцев</h2>
             <div class="radio-blocks">
                 <input type="radio" id="one" name="fingers" value="1" required>
                 <label for="one">Один</label>
             </div>
-
             <div class="radio-blocks">
                 <input type="radio" id="two" name="fingers" value="2" required>
                 <label for="two">Два</label>
             </div>
-
             <div class="radio-blocks">
                 <input type="radio" id="some" name="fingers" value="5" required>
                 <label for="some">Несколько / комбинированно</label>
@@ -32,7 +45,6 @@
                 <input type="radio" id="standard" name="mode" value="std" required>
                 <label for="standard">Стандарт(по порядку)</label>
             </div>
-
             <div class="radio-blocks">
                 <input type="radio" id="random" name="mode" value="rnd" required>
                 <label for="random">Случайно</label>

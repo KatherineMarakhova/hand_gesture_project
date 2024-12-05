@@ -93,7 +93,7 @@ const outputDivNextval = document.getElementById('nextval');
 const outputDivNextimg = document.getElementById('gesture_image');
 const outputDivResult = document.getElementById('result');
 
-outputDivNextval.innerHTML = "Первое упражнение : ";
+outputDivNextval.innerHTML = `Покажите свою ${hand_location=="Left"? 'левую':'правую'} руку как показано на картинке : `;
 
 const imagePath = 'http://127.0.0.1:8000/static/hand_gesture/img/'+exlist[0]+'.jpg';
 const imageContainer = document.getElementById('image-container');
@@ -141,11 +141,18 @@ hands.onResults((results) => {
 
                 let sum = get_sum(isOpenFingers);
                 if(iter>=exercises){
-                    outputDivResult.innerHTML = "Тренировка окончена!";
-                    show_notification("Тренировка окончена!", 'base');
-                    setTimeout(() => {
+                    //outputDivResult.innerHTML = "Тренировка окончена!";
+//                    show_notification("Тренировка окончена!", 'base');
+                    var result = confirm("Тренировка окончена!");
+                    if (result){
                         window.location.href = '/';
-                    }, 2000);
+                    }
+                    else{
+                        window.location.reload();
+                    }
+                    // setTimeout(() => {
+                    // window.location.href = '/';
+                    // }, 2000);
                 }
                 else if(sum == exlist[iter]){
                     iter+=1;
@@ -192,6 +199,7 @@ function show_notification(text, type){
     // Уведомление через DOM
     const notification = document.createElement('div');
     notification.textContent = text;
+    var time = 500;
 
     if(type == 'base'){
         notification.style.cssText = `
@@ -204,6 +212,7 @@ function show_notification(text, type){
         border-radius: 5px;
         box-shadow: 0 2px 5px 666370;
         `;
+        time = 2000;
     }
     if(type == 'error'){
         notification.style.cssText = `
@@ -223,5 +232,5 @@ function show_notification(text, type){
     // Автоматическое скрытие через 3 секунды
     setTimeout(() => {
         notification.remove();
-    }, 500);
+    }, time);
 }
