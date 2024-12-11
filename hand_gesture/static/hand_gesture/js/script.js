@@ -4,8 +4,8 @@ const canvasElement = document.getElementById('canvas');
 const canvasCtx = canvasElement.getContext('2d');
 canvasCtx.translate(600, 0);
 canvasCtx.scale(-1, 1);
-const gestureElement = document.getElementById('gesture');
 
+const gestureElement = document.getElementById('gesture');
 const hand_location = localStorage.getItem('hands');
 const fingers = parseInt(localStorage.getItem('fingers'));
 const mode = localStorage.getItem('mode');
@@ -23,22 +23,18 @@ hands.setOptions({
 });
 
 const exlist = [];
-//const one_fingers_list = [16, 8, 4, 2, 1, 2, 4, 8, 16];
 const one_fingers_list = [16, 8, 4, 1, 4, 8, 16];               //without ring finger
-//const two_fingers_list = [3, 5, 6, 9, 10, 12, 17, 18, 20, 24];
-const two_fingers_list = [3, 5, 6, 9, 10, 12, 17, 20, 24];      //without ring finger
-const more_fingers_list = [16, 24, 28, 30, 31];
+const two_fingers_list = [3, 5, 6, 9, 12, 17, 20, 24];          //without ring finger
+const more_fingers_list = [16, 24, 28, 31];
+const all_fingers = [16, 8, 4, 1, 3, 5, 6, 9, 12, 17, 20, 24, 28, 31];
 
 //Generate list of exercises
 switch (fingers){
     case 1:
         switch (mode){
             case "std":
-                exlist.push(...one_fingers_list);
-                if (exercises > 10){
-                    for(let i=0; i<Math.floor(exercises/10); i++){
-                        exlist.push(...one_fingers_list);
-                    }
+                for(let i=0; i<Math.floor(exercises); i++){
+                    exlist.push(one_fingers_list[i % one_fingers_list.length]);
                 }
                 break;
             case "rnd":
@@ -52,11 +48,8 @@ switch (fingers){
     case 2:
         switch (mode){
             case "std":
-                exlist.push(...two_fingers_list);
-                if (exercises > 10){
-                    for(let i=0; i<Math.floor(exercises/10); i++){
-                        exlist.push(two_fingers_list);
-                    }
+                for(let i=0; i<exercises; i++){
+                    exlist.push(two_fingers_list[i % two_fingers_list.length]);
                 }
                 break;
             case "rnd":
@@ -70,16 +63,14 @@ switch (fingers){
     case 5:
         switch (mode){
             case "std":
-                exlist.push(...more_fingers_list);
-                if (exercises > 10){
-                    for(let i=0; i<Math.floor(exercises/10); i++){
-                        exlist.push(...more_fingers_list);
-                    }
+                for(let i=0; i<exercises; i++){
+                    exlist.push(more_fingers_list[i % more_fingers_list.lengths]);
                 }
                 break;
             case "rnd":
                 for (let i = 0; i < exercises; i++) {
-                    exlist.push(Math.floor(Math.random() * 32));
+                    let randomItem = all_fingers[Math.floor(Math.random() * all_fingers.length)];
+                    exlist.push(randomItem);
                 }
                 break;
         }
@@ -92,7 +83,24 @@ outputDiv.innerHTML = exlist.slice(0, exercises).join(', ');
 const outputDivNextval = document.getElementById('nextval');
 const outputDivNextimg = document.getElementById('gesture_image');
 const outputDivResult = document.getElementById('result');
+let timer = document.getElementById('header-timer');
 
+timer.innerHTML = "00:00:00";
+const start_time = new Date();
+var time_interval = setInterval(myTimer, 0);
+
+function myTimer() {
+    const current_time = new Date();
+    let ms = (current_time.getTime() - start_time.getTime());
+    timer.innerHTML = get_format_time(ms);
+}
+
+function get_format_time(ms){
+    let h = Math.floor(ms/3600000) % 24;
+    let m = Math.floor(ms/60000) % 60;
+    let s = Math.floor(ms/1000) % 60;
+    return `${~~(h/10) == 0? '0'+h : h}:${~~(m/10) == 0? '0'+m : m}:${~~(s/10) == 0? '0'+s : s}`;
+}
 outputDivNextval.innerHTML = `Покажите свою ${hand_location=="Left"? 'левую':'правую'} руку как показано на картинке : `;
 
 const imagePath = 'http://127.0.0.1:8000/static/hand_gesture/img/'+exlist[0]+'.jpg';
@@ -129,8 +137,8 @@ hands.onResults((results) => {
                 lineWidth: 1
             });
 
+            // Зеркальное распознавание положения рук
             if (handedness != hand_location){
-                // Определение жестов на одной руке
                 var isOpenFingers = {
                     16: landmarks[5].y  > landmarks[4].y,    //thumb   10000
                     8:  landmarks[6].y  > landmarks[8].y,    //index   01000
@@ -141,18 +149,17 @@ hands.onResults((results) => {
 
                 let sum = get_sum(isOpenFingers);
                 if(iter>=exercises){
-                    //outputDivResult.innerHTML = "Тренировка окончена!";
-//                    show_notification("Тренировка окончена!", 'base');
-                    var result = confirm("Тренировка окончена!");
+                    let end_time = get_format_time(Date.now() - start_time.getTime());
+                    var result = confirm(`Тренировка окончена!\n Время выполнения упражнения: ${end_time}`);
+                    clearInterval(time_interval);
+                    timer.innerHTML = end_time;
+
                     if (result){
                         window.location.href = '/';
                     }
                     else{
                         window.location.reload();
                     }
-                    // setTimeout(() => {
-                    // window.location.href = '/';
-                    // }, 2000);
                 }
                 else if(sum == exlist[iter]){
                     iter+=1;
@@ -169,10 +176,15 @@ hands.onResults((results) => {
                     imageContainer.replaceChild(img, old_img);
                 }
             }
-            else{
+            else {
                 show_notification("Смените руку!", type='error');
             }
         });
+//        results.multiHandLandmarks.forEach((landmarks, index) => {
+//        landmarks.forEach((landmark, i) => {
+//          console.log(`  Point ${i}: x = ${landmark.x}, y = ${landmark.y}, z = ${landmark.z}`);
+//        });
+//      });
     }
 });
 
@@ -229,7 +241,7 @@ function show_notification(text, type){
 
     document.body.appendChild(notification);
 
-    // Автоматическое скрытие через 3 секунды
+    // Автоматическое скрытие через time милисекунд
     setTimeout(() => {
         notification.remove();
     }, time);

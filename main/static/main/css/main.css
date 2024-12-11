@@ -5,7 +5,9 @@ body{
 aside{
     float: left;
     background: #CCE3DE;
-    width: 15%;
+/*    width: 15%;*/
+    left: -250px;
+    width: 250px;
     padding: 2.5%;
     height: 100vh;
     color: #6B9080;
