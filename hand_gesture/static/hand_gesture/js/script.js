@@ -108,6 +108,7 @@ const imageContainer = document.getElementById('image-container');
 const img = document.createElement('img');
 img.src = imagePath;
 img.id = 'hand_image';
+img.style.animation = "show 5s";
 imageContainer.appendChild(img);
 
 let iter = 0;
@@ -172,6 +173,7 @@ hands.onResults((results) => {
                     const img = document.createElement('img');
                     img.src = imagePath;
                     img.id = 'hand_image';
+                    img.style.animation = "show 5s";
                     const old_img = document.getElementById('hand_image');
                     imageContainer.replaceChild(img, old_img);
                 }

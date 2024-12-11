@@ -61,8 +61,17 @@ div.image-container{
     position: absolute;
     top: 0;
     right: 0;
-    width: 50%; /* Задайте ширину изображения */
+    width: 50%;   /* Задайте ширину изображения */
     height: auto; /* Сохраните пропорции изображения */
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 body, aside{
