@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -13,13 +13,30 @@
     {% endblock %}
 </head>
 <body>
+
     <aside id="aside-bar">
         <span class="logo">Твоя моторика</span>
         <ul>
-            <a href="{% url 'homepage' %}"><li><i class="fa-solid fa-house"></i> Главная </li></a>
-            <a href="{% url 'aboutpage' %}"><li><i class="fa-solid fa-people-roof"></i> О нас </li></a>
-            <a href=""><li><i class="fa-solid fa-address-card"></i> Контакты </li></a>
-        </ul>
+        <li class="nav-item">
+            <a href="{% url 'homepage' %}" class="nav-link">
+                <i class="fa-solid fa-house"></i>
+                Главная
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{% url 'aboutpage' %}" class="nav-link">
+                <i class="fa-solid fa-people-roof"></i>
+                О нас
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'aboutpage' %}" class="nav-link">
+                <i class="fa-solid fa-address-card"></i>
+                Контакты
+            </a>
+        </li>
+    </ul>
     </aside>
 
     <main>

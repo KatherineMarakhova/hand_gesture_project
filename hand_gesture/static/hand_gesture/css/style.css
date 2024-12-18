@@ -65,6 +65,10 @@ div.image-container{
     height: auto; /* Сохраните пропорции изображения */
 }
 
+.image{
+    border-radius:6px;
+}
+
 @keyframes show {
     from {
         opacity: 0;
