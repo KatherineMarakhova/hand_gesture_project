@@ -7,57 +7,58 @@
 {% endblock %}
 
 {% block content %}
-    <div class="features">
-        <h1> ВЫБЕРИТЕ ПАРАМЕТРЫ ДЛЯ УПРАЖНЕНИЙ</h1>
-        <form action="" method="POST" id="form-create-config">
+    <div class="text">
+        <h2> Выберите параметры для упражнений</h2>
+        <form name="form" action="{% url 'ex_gesture_page' %}" method="POST" id="FormCreateConfig">
             {% csrf_token %}
 
-            <h2>Выбор руки</h2>
+            <h3>Выбор руки</h3>
             <div class="radio-blocks">
                 <input type="radio" id="left" name="hands" value="Left" required>
-                <label for="one">Левая</label>
+                <label for="left">левая</label>
             </div>
             <div class="radio-blocks">
                 <input type="radio" id="right" name="hands" value="Right" required>
-                <label for="two">Правая</label>
+                <label for="right">правая</label>
             </div>
             <div class="radio-blocks">
                 <input type="radio" id="multi" name="hands" value="Multi" required>
-                <label for="some">Обе руки</label>
+                <label for="multi">обе руки</label>
             </div>
 
-            <h2>Количество задействованных пальцев</h2>
+            <h3>Количество задействованных пальцев</h3>
             <div class="radio-blocks">
                 <input type="radio" id="one" name="fingers" value="1" required>
-                <label for="one">Один</label>
+                <label for="one">один</label>
             </div>
             <div class="radio-blocks">
                 <input type="radio" id="two" name="fingers" value="2" required>
-                <label for="two">Два</label>
+                <label for="two">два</label>
             </div>
             <div class="radio-blocks">
                 <input type="radio" id="some" name="fingers" value="5" required>
-                <label for="some">Несколько / комбинированно</label>
+                <label for="some">несколько/комбинированно</label>
             </div>
 
-            <h2>Режим выполнения упражнения</h2>
+            <h3>Режим выполнения упражнения</h3>
             <div class="radio-blocks">
                 <input type="radio" id="standard" name="mode" value="std" required>
-                <label for="standard">Стандарт(по порядку)</label>
+                <label for="standard">стандарт(по порядку)</label>
             </div>
             <div class="radio-blocks">
                 <input type="radio" id="random" name="mode" value="rnd" required>
-                <label for="random">Случайно</label>
+                <label for="random">случайно</label>
             </div>
 
-            <h2>Длительность занятия</h2>
-            <div>
-                <input type="number" name="exercises" required>
+            <h3>Длительность занятия</h3>
+            <div class="input">
+                <input type="number" min="1" max="1000" name="exercises" required>
                 <label>жест(-ов)</label>
             </div>
             <br>
-            <input class="btn btn-warning" onclick="window.location.href = {% url 'ex_gesture_page' %};" type="submit" value="Начать!" />
+<!--            <input type="submit" value="Subscribe!" />-->
+            <input class="button-submit" onclick="window.location.href = {% url 'ex_gesture_page' %};" type="submit" value="Начать!" />
         </form>
-        <script src="{% static 'form_config/js/index.js'%}"></script>
+        <script src="{% static 'form_config/js/index.js' %}"></script>
     </div>
 {% endblock %}

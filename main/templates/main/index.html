@@ -9,7 +9,11 @@
     <p>
         Сайт Твоя Моторика - это бесплатный интерактивный инструмент для проработки мелкой моторики рук.
     </p>
-    <a href="{% url 'config_page' %}"><button class="btn btn-warning">Перейти к упражнениям!</button></a>
+    <div class="button-div">
+        <a href="{% url 'config_page' %}">
+            <button class="btn-main">Перейти к упражнениям!</button>
+        </a>
+    </div>
 </div>
 
 {% endblock %}

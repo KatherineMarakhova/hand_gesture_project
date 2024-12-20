@@ -8,24 +8,20 @@
 {% endblock %}
 
 {% block content %}
-<h2 id="header-timer">Упражнения на развитие моторики</h2>
 <div class="content">
     <div class="ex-list">
-        <p id="exslist">Список упражнений :</p>
+        <h2 id="header-timer">Упражнения на развитие моторики</h2>
         <p id="output"></p>
         <p id="nextval"></p>
-        <div id="image-container" class="image"></div>
-        <p id="result"></p>
+        <div id="image-container"></div>
     </div>
     <div id="notification"></div>
     <div id="container">
         <canvas id="canvas" width="640" height="480">
             <video id="video" autoplay>
-
             </video>
         </canvas>
     </div>
-    <p id="gesture"></p>
 
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>

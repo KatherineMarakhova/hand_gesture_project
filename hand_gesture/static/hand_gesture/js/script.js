@@ -1,15 +1,14 @@
-const notivication = document.getElementById('notification');
-const videoElement = document.getElementById('video');
+const notivication = document.getElementById('notification');           // всплывающее уведомление
+const videoElement = document.getElementById('video');                  // видео-элемент
 const canvasElement = document.getElementById('canvas');
-const canvasCtx = canvasElement.getContext('2d');
+const canvasCtx = canvasElement.getContext('2d');                       // канва с видео и отрисовкой образов рук
 canvasCtx.translate(600, 0);
 canvasCtx.scale(-1, 1);
 
-const gestureElement = document.getElementById('gesture');
-const hand_location = localStorage.getItem('hands');
-const fingers = parseInt(localStorage.getItem('fingers'));
-const mode = localStorage.getItem('mode');
-const exercises = parseInt(localStorage.getItem('exercises'));
+const hand_location = localStorage.getItem('hands');                    // выбор рук
+const fingers = parseInt(localStorage.getItem('fingers'));              // кол-во участвующих пальцев
+const mode = localStorage.getItem('mode');                              // выбор режима
+const exercises = parseInt(localStorage.getItem('exercises'));          // кол-во упражнений
 
 const hands = new Hands({locateFile: (file) => {
     return "https://cdn.jsdelivr.net/npm/@mediapipe/hands/" + file;
@@ -28,12 +27,14 @@ const two_fingers_list = [3, 5, 6, 9, 12, 17, 20, 24];          //without ring f
 const more_fingers_list = [16, 24, 28, 31];
 const all_fingers = [16, 8, 4, 1, 3, 5, 6, 9, 12, 17, 20, 24, 28, 31];
 
+console.log(exercises);
+
 //Generate list of exercises
 switch (fingers){
     case 1:
         switch (mode){
             case "std":
-                for(let i=0; i<Math.floor(exercises); i++){
+                for(let i=0; i<exercises; i++){
                     exlist.push(one_fingers_list[i % one_fingers_list.length]);
                 }
                 break;
@@ -78,8 +79,6 @@ switch (fingers){
 }
 
 const outputDiv = document.getElementById('output');
-outputDiv.innerHTML = exlist.slice(0, exercises).join(', ');
-
 const outputDivNextval = document.getElementById('nextval');
 const outputDivNextimg = document.getElementById('gesture_image');
 const outputDivResult = document.getElementById('result');
@@ -108,7 +107,7 @@ const imageContainer = document.getElementById('image-container');
 const img = document.createElement('img');
 img.src = imagePath;
 img.id = 'hand_image';
-img.style.animation = "show 5s";
+img.style.borderRadius= "6px";
 imageContainer.appendChild(img);
 
 let iter = 0;
@@ -126,7 +125,6 @@ hands.onResults((results) => {
             // Определение левая или правая рука
             const handedness = results.multiHandedness[index].label;
 
-            console.log(hand_location)
             // Отрисовка точек руки
             drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
                 color: handedness != hand_location ? '#00FF00' : '#FF0000',
@@ -157,6 +155,7 @@ hands.onResults((results) => {
 
                     if (result){
                         window.location.href = '/';
+                        localStorage.clear();
                     }
                     else{
                         window.location.reload();
@@ -169,6 +168,7 @@ hands.onResults((results) => {
                     let binn = exlist[iter].toString(2);
                     binn = "00000".substr(binn.length) + binn;
                     let imagePath = 'http://127.0.0.1:8000/static/hand_gesture/img/'+exlist[iter]+'.jpg';
+                    outputDiv.innerHTML = `Количество оставшихся упражнений: ${exercises - iter}`;
                     const imageContainer = document.getElementById('image-container');
                     const img = document.createElement('img');
                     img.src = imagePath;
