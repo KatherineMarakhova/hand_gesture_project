@@ -5,11 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hand Gesture Recognition</title>
 <link rel="stylesheet" href="{% static 'hand_gesture/css/style.css' %}">
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
 {% endblock %}
 
 {% block content %}
 <div class="content">
     <div class="ex-list">
+        <p id="mood"></p>
         <h2 id="header-timer">Упражнения на развитие моторики</h2>
         <p id="output"></p>
         <p id="nextval"></p>
