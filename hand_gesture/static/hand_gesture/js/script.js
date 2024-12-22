@@ -21,8 +21,8 @@ const hand_location = localStorage.getItem('hands');                    // вы�
 const fingers = parseInt(localStorage.getItem('fingers'));              // кол-во участвующих пальцев
 const mode = localStorage.getItem('mode');                              // выбор режима
 const exercises = parseInt(localStorage.getItem('exercises'));          // кол-во упражнений
-const hands = new Hands({locateFile: (file) => {
-    return "https://cdn.jsdelivr.net/npm/@mediapipe/hands/" + file;
+const hands = new Hands({locateFile: (handsFile) => {
+    return "https://cdn.jsdelivr.net/npm/@mediapipe/hands/" + handsFile;
 }});
 
 hands.setOptions({
@@ -88,7 +88,6 @@ switch (fingers){
         }
         break;
 }
-
 
 function myTimer() {
     const current_time = new Date();
@@ -192,36 +191,34 @@ hands.onResults((results) => {
 });
 
 // ==== Initialize MediaPipe Face Mesh ====
-function get_mood(){
-    const faceMesh = new FaceMesh({
-        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
-    });
+const faceMesh = new FaceMesh({
+    locateFile: (faseFile) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${faseFile}`
+});
 
-    faceMesh.setOptions({
-        maxNumFaces: 1,
-        refineLandmarks: true,
-        minDetectionConfidence: 0.5,
-        minTrackingConfidence: 0.5
-    });
+faceMesh.setOptions({
+    maxNumFaces: 1,
+    refineLandmarks: true,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5
+});
 
-    faceMesh.onResults((results) => {
+faceMesh.onResults((results) => {
 
-        if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
-            const faceLandmarks = results.multiFaceLandmarks[0];
+    if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
+        const faceLandmarks = results.multiFaceLandmarks[0];
 
-            // Analyze mood based on landmarks
-            const mood = analyzeMood(faceLandmarks);
+        // Analyze mood based on landmarks
+        const mood = analyzeMood(faceLandmarks);
 
-            const moodElement = document.getElementById('mood');
-            moodElement.innerHTML(`Mood: ${mood}`);
-            // Draw mood label
-            //        canvasCtx.font = '24px Arial';
-            //        canvasCtx.fillStyle = 'red';
-            //        canvasCtx.fillText(`Mood: ${mood}`, 10, 30);
-        }
+        const moodElement = document.getElementById('mood');
+        moodElement.innerHTML = `Mood: ${mood}`;
+        // Draw mood label
+        //        canvasCtx.font = '24px Arial';
+        //        canvasCtx.fillStyle = 'red';
+        //        canvasCtx.fillText(`Mood: ${mood}`, 10, 30);
+    }
 
-    });
-}
+});
 
 // Function to analyze mood based on landmarks
 function analyzeMood(landmarks) {
@@ -237,20 +234,22 @@ function analyzeMood(landmarks) {
     const smileCurvature = Math.abs(leftMouthCorner.y - rightMouthCorner.y);
 
     if (mouthOpenness > 0.05) {
+        console.log('Surprised');
         return 'Surprised';
     } else if (smileCurvature < 0.01) {
+        console.log('Neutral');
         return 'Neutral';
     } else {
+        console.log('Happy');
         return 'Happy';
     }
 }
 
 const camera = new Camera(videoElement, {
     onFrame: async () => {
-        await Promise.all([
-                hands.send({ image: videoElement }),
-//                get_mood()
-            ]);
+        const videoFrame = { image: videoElement };
+        await hands.send(videoFrame);
+        await faceMesh.send(videoFrame);
     },
     width: 640,
     height: 480
