@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hand Gesture Recognition</title>
 <link rel="stylesheet" href="{% static 'hand_gesture/css/style.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=mood" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=sentiment_neutral" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=mood_bad" />
 
 
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
@@ -13,7 +16,7 @@
 {% block content %}
 <div class="content">
     <div class="ex-list">
-        <p id="mood"></p>
+        <i class='bx bx-smile' id="mood-emoji"></i>
         <h2 id="header-timer">Упражнения на развитие моторики</h2>
         <p id="output"></p>
         <p id="nextval"></p>

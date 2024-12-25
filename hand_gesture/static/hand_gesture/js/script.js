@@ -1,9 +1,9 @@
 const notivication = document.getElementById('notification');           // всплывающее уведомление
 const videoElement = document.getElementById('video');                  // видео-элемент
-const canvasElement = document.getElementById('canvas');
-const canvasCtx = canvasElement.getContext('2d');                       // канва с видео и отрисовкой образов рук
+const canvasElement = document.getElementById('canvas');                // канва с видео и отрисовкой образов рук
+const canvasCtx = canvasElement.getContext('2d');                       // получаем картинку с канвы
 canvasCtx.translate(600, 0);
-canvasCtx.scale(-1, 1);
+canvasCtx.scale(-1, 1);                                                 // зеркалим наше изображение
 
 const outputDiv = document.getElementById('output');
 const outputDivNextval = document.getElementById('nextval');
@@ -15,8 +15,7 @@ timer.innerHTML = "00:00:00";
 const start_time = new Date();
 var time_interval = setInterval(myTimer, 0);
 
-// ==== HANDS BLOCK ====
-
+// ==== HANDS DETECTION PART ====
 const hand_location = localStorage.getItem('hands');                    // выбор рук
 const fingers = parseInt(localStorage.getItem('fingers'));              // кол-во участвующих пальцев
 const mode = localStorage.getItem('mode');                              // выбор режима
@@ -116,6 +115,11 @@ if (hand_location=="Left") {
 }
 imageContainer.appendChild(img);
 
+var moods = {};
+moods["smile"] = 0;
+moods["confused"] = 0;
+moods["shocked"] = 0;
+
 let iter = 0;
 
 // Обработка результатов
@@ -155,7 +159,12 @@ hands.onResults((results) => {
                 let sum = get_sum(isOpenFingers);
                 if(iter>=exercises){
                     let end_time = get_format_time(Date.now() - start_time.getTime());
-                    var result = confirm(`Тренировка окончена!\n Время выполнения упражнения: ${end_time}`);
+
+                    final_mood = (moods["smile"]>moods["confused"] && moods["smile"]>moods["shocked"])?"😀":(moods["confused"]>moods["shocked"]?"😐":"😮");
+
+                    console.log(`smile: ${moods["smile"]}, confused: ${moods["confused"]}, schocked: ${moods["shocked"]}`);
+
+                    var result = confirm(`Тренировка окончена!\nВремя выполнения упражнения: ${end_time}\nЧаще всего, ваше настроение было ${final_mood}`);
                     clearInterval(time_interval);
                     timer.innerHTML = end_time;
 
@@ -185,11 +194,6 @@ hands.onResults((results) => {
                 show_notification("Смените руку!", type='error');
             }
         });
-//        results.multiHandLandmarks.forEach((landmarks, index) => {
-//        landmarks.forEach((landmark, i) => {
-//          console.log(`  Point ${i}: x = ${landmark.x}, y = ${landmark.y}, z = ${landmark.z}`);
-//        });
-//      });
     }
 });
 
@@ -213,14 +217,9 @@ faceMesh.onResults((results) => {
         // Analyze mood based on landmarks
         const mood = analyzeMood(faceLandmarks);
 
-        const moodElement = document.getElementById('mood');
-        moodElement.innerHTML = `Mood: ${mood}`;
-        // Draw mood label
-        //        canvasCtx.font = '24px Arial';
-        //        canvasCtx.fillStyle = 'red';
-        //        canvasCtx.fillText(`Mood: ${mood}`, 10, 30);
+        const moodElement = document.getElementById('mood-emoji');
+        moodElement.className = `bx bx-${mood}`;
     }
-
 });
 
 // Function to analyze mood based on landmarks
@@ -237,14 +236,14 @@ function analyzeMood(landmarks) {
     const smileCurvature = Math.abs(leftMouthCorner.y - rightMouthCorner.y);
 
     if (mouthOpenness > 0.05) {
-        console.log('Surprised');
-        return 'Surprised';
+        moods["shocked"]+=1;
+        return 'shocked';
     } else if (smileCurvature < 0.01) {
-        console.log('Neutral');
-        return 'Neutral';
+        moods["confused"]+=1;
+        return 'confused';
     } else {
-        console.log('Happy');
-        return 'Happy';
+        moods["smile"]+=1;
+        return 'smile';
     }
 }
 
@@ -253,6 +252,7 @@ const camera = new Camera(videoElement, {
         const videoFrame = { image: videoElement };
         await hands.send(videoFrame);
         await faceMesh.send(videoFrame);
+        await hands.send({ image: videoElement });
     },
     width: 640,
     height: 480
