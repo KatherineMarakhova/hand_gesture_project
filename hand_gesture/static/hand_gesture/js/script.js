@@ -16,10 +16,10 @@ const start_time = new Date();
 var time_interval = setInterval(myTimer, 0);
 
 // ==== HANDS DETECTION PART ====
-const hand_location = localStorage.getItem('hands');                    // выбор рук
-const fingers = parseInt(localStorage.getItem('fingers'));              // кол-во участвующих пальцев
-const mode = localStorage.getItem('mode');                              // выбор режима
-const exercises = parseInt(localStorage.getItem('exercises'));          // кол-во упражнений
+let hand_location = localStorage.getItem('hands');                    // Left/Right/Multi
+const fingers = parseInt(localStorage.getItem('fingers'));              // 1-5
+const mode = localStorage.getItem('mode');                              // std/rnd
+const exercises = parseInt(localStorage.getItem('exercises'));          // 1-1000
 const hands = new Hands({locateFile: (handsFile) => {
     return "https://cdn.jsdelivr.net/npm/@mediapipe/hands/" + handsFile;
 }});
@@ -31,62 +31,86 @@ hands.setOptions({
     minTrackingConfidence: 0.5,
 });
 
-const exlist = [];
+let exlist = [];
+let hands_location_list = [];                      //для Multi режима
 const one_fingers_list = [16, 8, 4, 1, 4, 8, 16];
 const two_fingers_list = [3, 6, 9, 12, 17, 20, 24];
 const more_fingers_list = [16, 24, 28, 31];
 const all_fingers = [16, 8, 4, 1, 3, 6, 9, 12, 17, 20, 24, 28, 31];
+const fist_and_palm = [0, 31];
+const left_right = ["Left", "Right"];
 
-console.log(exercises);
+console.log(hand_location);
 
-//Generate list of exercises
-switch (fingers){
-    case 1:
-        switch (mode){
-            case "std":
-                for(let i=0; i<exercises; i++){
-                    exlist.push(one_fingers_list[i % one_fingers_list.length]);
-                }
-                break;
-            case "rnd":
-                for (let i = 0; i < exercises; i++) {
-                    let randomItem = one_fingers_list[Math.floor(Math.random() * one_fingers_list.length)];
-                    exlist.push(randomItem);
-                }
-                break;
-        }
-        break;
-    case 2:
-        switch (mode){
-            case "std":
-                for(let i=0; i<exercises; i++){
-                    exlist.push(two_fingers_list[i % two_fingers_list.length]);
-                }
-                break;
-            case "rnd":
-                for (let i = 0; i < exercises; i++) {
-                    let randomItem = two_fingers_list[Math.floor(Math.random() * two_fingers_list.length)];
-                    exlist.push(randomItem);
-                }
-                break;
-        }
-        break;
-    case 5:
-        switch (mode){
-            case "std":
-                for(let i=0; i<exercises; i++){
-                    exlist.push(more_fingers_list[i % more_fingers_list.lengths]);
-                }
-                break;
-            case "rnd":
-                for (let i = 0; i < exercises; i++) {
-                    let randomItem = all_fingers[Math.floor(Math.random() * all_fingers.length)];
-                    exlist.push(randomItem);
-                }
-                break;
-        }
-        break;
+// Generate exlist - exercises list and hands_location_list - hands location for both hand exercises
+if (hand_location == "Left" || hand_location == "Right"){
+    switch (fingers){
+        case 1:
+            switch (mode){
+                case "std":
+                    for(let i=0; i<exercises; i++){
+                        exlist.push(one_fingers_list[i % one_fingers_list.length]);
+                    }
+                    break;
+                case "rnd":
+                    for (let i = 0; i < exercises; i++) {
+                        let randomItem = one_fingers_list[Math.floor(Math.random() * one_fingers_list.length)];
+                        exlist.push(randomItem);
+                    }
+                    break;
+            }
+            break;
+        case 2:
+            switch (mode){
+                case "std":
+                    for(let i=0; i<exercises; i++){
+                        exlist.push(two_fingers_list[i % two_fingers_list.length]);
+                    }
+                    break;
+                case "rnd":
+                    for (let i = 0; i < exercises; i++) {
+                        let randomItem = two_fingers_list[Math.floor(Math.random() * two_fingers_list.length)];
+                        exlist.push(randomItem);
+                    }
+                    break;
+            }
+            break;
+        case 5:
+            switch (mode){
+                case "std":
+                    for(let i=0; i<exercises; i++){
+                        exlist.push(more_fingers_list[i % more_fingers_list.lengths]);
+                    }
+                    break;
+                case "rnd":
+                    for (let i = 0; i < exercises; i++) {
+                        let randomItem = all_fingers[Math.floor(Math.random() * all_fingers.length)];
+                        exlist.push(randomItem);
+                    }
+                    break;
+            }
+            break;
+    }
+} else if (hand_location == "Multi") {
+    switch (mode){
+        case "std":
+            for(let i=0; i<exercises; i++){
+                exlist.push(fist_and_palm[i % fist_and_palm.length]);
+                hands_location_list.push(left_right[i % left_right.length]);
+            }
+            break;
+        case "rnd":
+            for (let i = 0; i < exercises; i++) {
+                let randomItem = fist_and_palm[Math.floor(Math.random() * fist_and_palm.length)];
+                exlist.push(randomItem);
+                hands_location_list.push(left_right[Math.floor(Math.random() * left_right.length)]);
+            }
+            break;
+    }
 }
+
+console.log(hand_location == "Left");
+//console.log(exlist[0]);
 
 function myTimer() {
     const current_time = new Date();
@@ -101,16 +125,18 @@ function get_format_time(ms){
     return `${~~(h/10) == 0? '0'+h : h}:${~~(m/10) == 0? '0'+m : m}:${~~(s/10) == 0? '0'+s : s}`;
 }
 
-outputDivNextval.innerHTML = `Покажите свою ${hand_location=="Left"? 'левую':'правую'} руку как показано на картинке : `;
+// First message
+hand_location = (hands_location_list.length >= 1)?hands_location_list[0]:hand_location;
+
+outputDivNextval.innerHTML = `Покажите свою <b style="color:${(hand_location == "Left")?'#F39C6B':'#659B5E'}">${(hand_location == "Left")?'левую':'правую'}</b> руку как показано на картинке : `;
 
 const imagePath = 'http://127.0.0.1:8000/static/hand_gesture/hands_img/'+exlist[0]+'.jpg';
-
 const imageContainer = document.getElementById('image-container');
 const img = document.createElement('img');
 img.src = imagePath;
 img.id = 'hand_image';
-img.style.borderRadius= "6px";
-if (hand_location=="Left") {
+img.style.borderRadius = "6px";
+if (hand_location == "Left" || hands_location_list[0] == "Left") {
     img.style.transform = "scale(-1, 1)";
 }
 imageContainer.appendChild(img);
@@ -144,7 +170,6 @@ hands.onResults((results) => {
             });
 
             // TODO: сделать не одновременное распознавание двух рук, а левая-правая поочереди
-            // TODO: задизайнить текст эмоций + график эмоций
 
             // Зеркальное распознавание положения рук
             if (handedness != hand_location){
@@ -162,8 +187,6 @@ hands.onResults((results) => {
 
                     final_mood = (moods["smile"]>moods["confused"] && moods["smile"]>moods["shocked"])?"😀":(moods["confused"]>moods["shocked"]?"😐":"😮");
 
-                    console.log(`smile: ${moods["smile"]}, confused: ${moods["confused"]}, schocked: ${moods["shocked"]}`);
-
                     var result = confirm(`Тренировка окончена!\nВремя выполнения упражнения: ${end_time}\nЧаще всего, ваше настроение было ${final_mood}`);
                     clearInterval(time_interval);
                     timer.innerHTML = end_time;
@@ -171,26 +194,33 @@ hands.onResults((results) => {
                     if (result){
                         window.location.href = '/';
                         localStorage.clear();
-                    }
-                    else{
+                    } else {
                         window.location.reload();
                     }
                 } else {
                     if(sum == exlist[iter]){
-                    iter+=1;
-                    let imagePath = 'http://127.0.0.1:8000/static/hand_gesture/hands_img/'+exlist[iter]+'.jpg';
-                    outputDiv.innerHTML = `Количество оставшихся упражнений: ${exercises - iter}`;
-                    const imageContainer = document.getElementById('image-container');
-                    const img = document.createElement('img');
-                    img.src = imagePath;
-                    img.id = 'hand_image';
-                    img.style.animation = "show 2s";
-                    const old_img = document.getElementById('hand_image');
-                    imageContainer.replaceChild(img, old_img);
+                        iter+=1;
+                        hand_location = (hands_location_list.length >= 1)?hands_location_list[iter]:hand_location;
+
+                        console.log("второе");
+                        console.log(hand_location);
+                        outputDivNextval.innerHTML = `Покажите свою <b style="color:${(hand_location == "Left")?'#F39C6B':'#659B5E'}">${(hand_location == "Left")?'левую':'правую'}</b> руку как показано на картинке : `;
+
+                        let imagePath = 'http://127.0.0.1:8000/static/hand_gesture/hands_img/'+exlist[iter]+'.jpg';
+                        outputDiv.innerHTML = `Количество оставшихся упражнений: ${exercises - iter}`;
+                        const imageContainer = document.getElementById('image-container');
+                        const img = document.createElement('img');
+                        img.src = imagePath;
+                        img.id = 'hand_image';
+                        img.style.animation = "show 2s";
+                        if (hand_location == "Left" || hands_location_list[iter] == "Left") {
+                            img.style.transform = "scale(-1, 1)";
+                        }
+                        const old_img = document.getElementById('hand_image');
+                        imageContainer.replaceChild(img, old_img);
                     }
                 }
-            }
-            else {
+            } else {
                 show_notification("Смените руку!", type='error');
             }
         });

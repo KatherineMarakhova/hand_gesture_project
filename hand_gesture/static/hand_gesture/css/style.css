@@ -60,3 +60,7 @@ body, aside{
     min-block-size: 100px;
     writing-mode: horizontal-tb;
 }
+
+#nextval, #output{
+    font-weight: 500;
+}
