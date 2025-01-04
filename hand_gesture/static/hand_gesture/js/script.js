@@ -16,7 +16,7 @@ const start_time = new Date();
 var time_interval = setInterval(myTimer, 0);
 
 // ==== HANDS DETECTION PART ====
-let hand_location = localStorage.getItem('hands');                    // Left/Right/Multi
+let hand_location = localStorage.getItem('hands');                      // Left/Right/Multi
 const fingers = parseInt(localStorage.getItem('fingers'));              // 1-5
 const mode = localStorage.getItem('mode');                              // std/rnd
 const exercises = parseInt(localStorage.getItem('exercises'));          // 1-1000
@@ -39,8 +39,6 @@ const more_fingers_list = [16, 24, 28, 31];
 const all_fingers = [16, 8, 4, 1, 3, 6, 9, 12, 17, 20, 24, 28, 31];
 const fist_and_palm = [0, 31];
 const left_right = ["Left", "Right"];
-
-console.log(hand_location);
 
 // Generate exlist - exercises list and hands_location_list - hands location for both hand exercises
 if (hand_location == "Left" || hand_location == "Right"){
@@ -109,9 +107,6 @@ if (hand_location == "Left" || hand_location == "Right"){
     }
 }
 
-console.log(hand_location == "Left");
-//console.log(exlist[0]);
-
 function myTimer() {
     const current_time = new Date();
     let ms = (current_time.getTime() - start_time.getTime());
@@ -136,7 +131,7 @@ const img = document.createElement('img');
 img.src = imagePath;
 img.id = 'hand_image';
 img.style.borderRadius = "6px";
-if (hand_location == "Left" || hands_location_list[0] == "Left") {
+if (hand_location == "Right" || hands_location_list[0] == "Right") {
     img.style.transform = "scale(-1, 1)";
 }
 imageContainer.appendChild(img);
@@ -169,8 +164,6 @@ hands.onResults((results) => {
                 lineWidth: 1
             });
 
-            // TODO: сделать не одновременное распознавание двух рук, а левая-правая поочереди
-
             // Зеркальное распознавание положения рук
             if (handedness != hand_location){
                 var isOpenFingers = {
@@ -202,7 +195,6 @@ hands.onResults((results) => {
                         iter+=1;
                         hand_location = (hands_location_list.length >= 1)?hands_location_list[iter]:hand_location;
 
-                        console.log("второе");
                         console.log(hand_location);
                         outputDivNextval.innerHTML = `Покажите свою <b style="color:${(hand_location == "Left")?'#F39C6B':'#659B5E'}">${(hand_location == "Left")?'левую':'правую'}</b> руку как показано на картинке : `;
 
@@ -213,7 +205,7 @@ hands.onResults((results) => {
                         img.src = imagePath;
                         img.id = 'hand_image';
                         img.style.animation = "show 2s";
-                        if (hand_location == "Left" || hands_location_list[iter] == "Left") {
+                        if (hand_location == "Right" || hands_location_list[iter] == "Right") {
                             img.style.transform = "scale(-1, 1)";
                         }
                         const old_img = document.getElementById('hand_image');
