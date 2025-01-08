@@ -1,15 +1,19 @@
-{% extends 'main/layout.html' %}
+{% extends 'main/base.html' %}
 
 {% block title %}Main page{% endblock %}
 
 {% block content %}
 
-<div class="features">
+<div class="text">
     <h1>Добро пожаловать!</h1>
     <p>
         Сайт Твоя Моторика - это бесплатный интерактивный инструмент для проработки мелкой моторики рук.
     </p>
-    <a href="{% url 'config_page' %}"><button class="btn btn-warning">Перейти к упражнениям!</button></a>
+    <div class="button-div">
+        <a href="{% url 'config_page' %}">
+            <button class="btn-main">Перейти к упражнениям!</button>
+        </a>
+    </div>
 </div>
 
 {% endblock %}
