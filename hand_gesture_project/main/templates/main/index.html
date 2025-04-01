@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Main page{% endblock %}
+
+{% block content %}
+
+<div class="text">
+    <h1>Добро пожаловать!</h1>
+    <p>
+        Сайт Твоя Моторика - это бесплатный интерактивный инструмент для проработки мелкой моторики рук.
+    </p>
+    <div class="button-div">
+        <a href="{% url 'config_page' %}">
+            <button class="btn-main">Перейти к упражнениям!</button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}

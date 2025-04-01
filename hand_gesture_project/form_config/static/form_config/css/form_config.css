@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+*{
+    font-family: "Mulish", serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --body-color: #EAF4F4;
+    --sidebar-color: #CCE3DE;
+    --primary-color: #EAF4F4;
+    --primary-color-light: #6B9080;
+    --toggle-color: #EAF4F4;
+    --text-color: #6B9080;
+
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
+
+h2{
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h3, label{
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+.radio-blocks label{
+    color: #2E4052;
+    font-size: 20px;
+}
+
+div.features h1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.features #FormCreateConfig{
+    margin-left: 30%;
+    align-items: center;
+    justify-content: center;
+}
+
+div.radio-blocks{
+    background: #A4C3B2;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 3px 15px 7px 10px;
+    margin: 3px;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+input[type="radio"]{
+      width: 1.15em;
+      height: 1.15em;
+      border: 0.15em;
+}
+
+input{
+    outline: none;
+    border-color: var(--primary-color-light);
+    border-radius: 6px;
+    height: 30px;
+    width: 165px;
+    background: var(--body-colorr);
+    font-family: "Mulish", serif;
+    box-sizing: border-box; /** позволит добавить padding */
+    padding: 1rem;
+}
+
+input.button-submit{
+    margin-top: 10px;
+    font-size: 25px;
+    height: 80px;
+    width: 400px;
+    font-size: 20px;
+    font-weight: 800;
+    background: #F3B61F;
+    border-radius: 6px;
+    margin-left: 30%;
+    border-width: 0;
+}
+
+.button-submit:hover {
+    background: #CE8D66;
+    transition: var(--tran-05);
+}
