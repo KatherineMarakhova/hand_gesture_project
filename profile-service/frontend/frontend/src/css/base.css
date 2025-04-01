@@ -24,6 +24,20 @@ h1 {
     font-size: 40px;
 }
 
+div.reset-sent {
+    color: #2e4052;
+    width: 800px;
+    padding: 40px 30px;
+    background: #EAF4F4;
+    margin: auto;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10%;
+}
+
 .login-form {
     width: 400px;
     padding: 40px 30px;
@@ -118,6 +132,12 @@ a.register-link {
 a.login-link {
     margin-top: 5px;
     margin-bottom: 10px;
+}
+
+div.remember-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sidebar{
