@@ -1,0 +1,157 @@
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-family: arial;
+}
+
+.montserrat-500 {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+body {
+  background: #A4C3B2;
+}
+
+h1 {
+  color: #6B9080;
+  text-align: center;
+  font-family: montserrat;
+  font-weight: 500;
+  font-size: 40px;
+}
+
+div.reset-sent {
+  color: #2e4052;
+  width: 800px;
+  padding: 40px 30px;
+  background: #EAF4F4;
+  margin: auto;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10%;
+}
+
+.login-form {
+  width: 400px;
+  padding: 40px 30px;
+  background: #EAF4F4;
+  margin: auto;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10%;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  height: 50px;
+  padding: 5px 7px 5px 15px;
+  background: #fff;
+  color: #666;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+
+}
+
+.form-group .mdi {
+  position: absolute;
+  right: 15px;
+  top: 17px;
+  color: #999;
+}
+
+.mdi {
+  top: 13px !important;
+  color: #0AC986 !important;
+}
+
+.form-control:focus {
+  color: #2e4052;
+  background-color: #fff;
+  border-color: #fff;
+  outline: none;
+  box-shadow: none;
+}
+
+
+.log-status.wrong-entry .form-control,
+.wrong-entry .form-control+.mdi {
+  border-color: #0AC986;
+  color: #0AC986;
+}
+
+.log-btn {
+  background: #0AC986;
+  display: inline-block;
+  width: 100%;
+  font-size: 16px;
+  height: 50px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  border: None
+}
+
+button.log-btn:hover{
+  background-color:#6B9080;
+}
+
+a.link {
+  text-decoration: none;
+  color: #6B9080;
+  font-size: 15px;
+  margin-top: 15px;
+  outline: none;
+}
+a.link:hover {
+  color: #2e4052;
+}
+
+a.forgot-link {
+  float: right;
+}
+
+a.register-link {
+  float: left;
+}
+
+a.login-link {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+div.remember-link {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.sidebar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 270px;
+  padding: 10px 14px;
+  background: var(--sidebar-color);
+  transition: var(--tran-05);
+  z-index: 100;
+}
+
+.sidebar.close{
+  width: 88px;
+}
