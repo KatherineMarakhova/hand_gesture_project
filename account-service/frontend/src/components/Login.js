@@ -7,6 +7,8 @@ export default function Login({ setToken }) {
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
+  document.title = "Вход"
+
   const handleSubmit = async e => {
     e.preventDefault();
     try {
@@ -32,6 +34,7 @@ export default function Login({ setToken }) {
             </div>
             <button type="submit" className="log-btn">Войти</button>
         </form>
+        <a href={"/register"}>Зарегистрироваться</a>
     </div>
   );
 }
