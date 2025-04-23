@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import PasswordReset from './components/PasswordReset';
+import PasswordResetConfirm from './components/PasswordResetConfirm';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 
@@ -27,8 +29,9 @@ function App() {
           }
         />
         <Route path="/register" element={<Register />}/>
-
-        {/* Другие маршруты */}
+        <Route path="/password-reset" element={<PasswordReset />}/>
+        <Route path="/password-reset-confirm" element={<PasswordResetConfirm />}/>
+        
       </Routes>
     </BrowserRouter>
   );

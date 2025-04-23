@@ -12,3 +12,6 @@ export const getUser = (token) =>
   axios.get(`${API_URL}user/`, {
     headers: { Authorization: `Bearer ${token}` }
   });
+
+export const passwordreset = (email) =>
+  axios.post(`${API_URL}password-reset/`, { email });

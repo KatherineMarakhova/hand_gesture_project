@@ -1,4 +1,4 @@
-# Account-Service - Backend (Django)
+# Account-Service - Backend (Django 4.2.13)
 
 ## Available Scripts
 

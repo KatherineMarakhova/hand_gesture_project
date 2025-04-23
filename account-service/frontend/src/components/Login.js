@@ -34,7 +34,8 @@ export default function Login({ setToken }) {
             </div>
             <button type="submit" className="log-btn">Войти</button>
         </form>
-        <a href={"/register"}>Зарегистрироваться</a>
+        <a class="link register-link" href={"/register"}>Зарегистрироваться</a>
+        <a class="link forgot-link" href={"/password-reset"}>Забыли пароль?</a>
     </div>
   );
 }
