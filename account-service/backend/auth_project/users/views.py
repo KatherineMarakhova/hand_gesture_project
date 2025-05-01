@@ -1,6 +1,7 @@
 from rest_framework import status, generics, permissions
 from django.contrib.auth.models import User
-from .serializers import UserSerializer
+from .serializers import (UserSerializer, RegisterSerializer, LoginSerializer, PasswordResetSerializer,
+                          PasswordResetConfirmSerializer)
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -11,15 +12,25 @@ from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 from rest_framework import status
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 import os
 from dotenv import load_dotenv
+
+# TODO: update responses in swagger!
 
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    # serializer_class = UserSerializer
+    serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
 
+    @swagger_auto_schema(
+        operation_description="Регистрация нового пользователя",
+        responses={201: RegisterSerializer()}
+    )
     def post(self, request, *args, **kwargs):
         password = request.data.get('password')
         user = User.objects.create_user(
@@ -34,12 +45,21 @@ class RegisterView(generics.CreateAPIView):
 class UserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    @swagger_auto_schema(
+        operation_description="Пользовательский профиль",
+        responses={200: UserSerializer()}
+    )
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
 
 class PasswordResetRequestView(APIView):
+    @swagger_auto_schema(
+        request_body=PasswordResetSerializer,
+        operation_description="Сброс пароля (отправка email)",
+        responses={200: 'Если email зарегистрирован, письмо отправлено.'}
+    )
     def post(self, request):
         load_dotenv()
         email = request.data.get('email')
@@ -58,6 +78,11 @@ class PasswordResetRequestView(APIView):
 
 
 class PasswordResetConfirmView(APIView):
+    @swagger_auto_schema(
+        request_body=PasswordResetConfirmSerializer,
+        operation_description="Сброс пароля (ввод нового пароля)",
+        responses={200: "Пароль обновлен"}
+    )
     def post(self, request):
         uidb64 = request.data.get('uid')
         token = request.data.get('token')
