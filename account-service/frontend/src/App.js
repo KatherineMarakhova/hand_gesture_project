@@ -19,18 +19,20 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route 
-          path="/login" 
+          // path="/login"
+          path="/"
           element={
-            !token ? <Login setToken={setToken} /> : < Navigate to="/profile"/>} />
+            !token ? <Login setToken={setToken} /> : < Navigate to="/profile" />} 
+        />
         <Route
           path="/profile"
           element={
-            token ? <Profile token={token} onLogout={handleLogout} /> : <Navigate to="/login" />
+            token ? <Profile token={token} onLogout={handleLogout} /> : <Navigate to="/" />
           }
         />
         <Route path="/register" element={<Register />}/>
         <Route path="/password-reset" element={<PasswordReset />}/>
-        <Route path="/password-reset-confirm" element={<PasswordResetConfirm />}/>
+        <Route path="/password-reset-confirm/:uid/:token" element={<PasswordResetConfirm />}/>
         
       </Routes>
     </BrowserRouter>

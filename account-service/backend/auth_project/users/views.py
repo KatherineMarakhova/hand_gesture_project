@@ -47,7 +47,7 @@ class PasswordResetRequestView(APIView):
         if user:
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)
-            reset_url = f"https://localhost:3000/reset-password/{uid}/{token}/"
+            reset_url = f"http://localhost:3000/password-reset-confirm/{uid}/{token}/"
             send_mail(
                 'Сброс пароля',
                 f'Перейдите по ссылке для сброса пароля: {reset_url}',
@@ -62,6 +62,8 @@ class PasswordResetConfirmView(APIView):
         uidb64 = request.data.get('uid')
         token = request.data.get('token')
         new_password = request.data.get('new_password')
+        if not (uidb64 and token and new_password):
+            return Response({'error': 'Не все поля заполнены'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             uid = urlsafe_base64_decode(uidb64).decode()
             user = User.objects.get(pk=uid)

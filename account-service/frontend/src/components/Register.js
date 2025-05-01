@@ -17,7 +17,7 @@ export default function Register() {
         if (form.password_check === form.password) {
             await register(form.username, form.email, form.password);
             alert('Регистрация успешна!');
-            navigate("/login");
+            navigate("/");
         } else {
             setpaswordError("Пароли не совпадают")
         }
@@ -33,20 +33,20 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="form-label"> Логин </label>
-          <input name="username" className="form-control" onChange={handleChange} />
+          <input name="username" className="form-control" onChange={handleChange} required />
         </div>
         <div className="form-group">
           <label className="form-label"> Email </label>
-          <input name="email" className="form-control" onChange={handleChange}/>
+          <input name="email" className="form-control" onChange={handleChange} required />
         </div>
         <div className="form-group">
           <label className="form-label"> Пароль </label>
-          <input name="password" className="form-control" type="password" onChange={handleChange} />
+          <input name="password" className="form-control" type="password" onChange={handleChange} required />
         </div>
         <div className="form-group">
           <div style={{color:'#D33F49'}}>{ paswordError }</div>
           <label className="form-label"> Повторите пароль </label>
-          <input name="password_check" className="form-control" type="password" onChange={handleChange} />
+          <input name="password_check" className="form-control" type="password" onChange={handleChange} required />
         </div>
         <button type="submit" className="log-btn">Зарегистрироваться</button>
       </form>
