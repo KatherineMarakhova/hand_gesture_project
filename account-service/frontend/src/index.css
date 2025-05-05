@@ -117,6 +117,7 @@ a.link {
   margin-top: 15px;
   outline: none;
 }
+
 a.link:hover {
   color: #2e4052;
 }
@@ -131,7 +132,7 @@ a.register-link {
 
 a.login-link {
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 div.remember-link {

@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e478dc29-d90a-44f7-91d4-e37589e9fc5c" name="Changes" comment="added swagger">
-      <change beforePath="$PROJECT_DIR$/account-service/backend/auth_project/auth_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/backend/auth_project/auth_project/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account-service/backend/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account-service/backend/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account-service/backend/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account-service/frontend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/frontend/src/components/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/frontend/src/components/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/frontend/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +27,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -138,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746128687454</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added swagger">
+      <option name="closed" value="true" />
+      <created>1746128823443</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746128823443</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
