@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router";
 import { register } from '../api';
 
 export default function Register() {
   const [form, setForm] = useState({ username: '', email: '', password: '', password_check: '' });
   const [paswordError, setPaswordError] = useState('');
   const [emailError, setEmailError] = useState('');
-  const navigate = useNavigate();
   const reEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const rePassw = /^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$/;
 
@@ -22,7 +20,6 @@ export default function Register() {
         if (form.password_check === form.password) {
           await register(form.username, form.email, form.password);
           alert('Регистрация успешна!');
-          navigate("/");
         } else {
           setPaswordError("Пароли не совпадают")
         }

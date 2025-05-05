@@ -185,19 +185,6 @@ header .image-text .header-text{
 }
 
 /*===== HOME SECTION =====*/
-.home{
-    position: relative;
-    left: 250px;
-    height: 100vh;
-    width: calc(100% - 250px);
-    background: var(--body-color);
-    transition: var(--tran-05);
-}
-
-.sidebar.close ~ .home{
-    height: 88vh;
-    width: calc(100% - 88px);
-}
 
 section.home .text{
     margin: 30px;

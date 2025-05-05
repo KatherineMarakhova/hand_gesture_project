@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getUser } from '../api';
+import ExistingModules from './ExistingModules';
 import {
   CCollapse,
   CContainer,
@@ -15,15 +16,17 @@ export default function Profile({ token, onLogout }) {
   const [user, setUser] = useState(null);
   const [visible, setVisible] = useState(false)
 
-  document.title = "Главная страница"
+  document.title = "Домашняя страница"
 
   useEffect(() => {
     if (token) {
       getUser(token).then(res => setUser(res.data));
     }
-  }, [token]);
+  }, [token])
+  
 
   if (!user) return <div>Загрузка...</div>;
+  
   
   return (
     <>
@@ -38,8 +41,11 @@ export default function Profile({ token, onLogout }) {
           />
           <CCollapse className="navbar-collapse" visible={visible}>
             <CNavbarNav>
+            <CNavItem>
+                <CNavLink href="#" active >{user.username}</CNavLink>
+              </CNavItem>
               <CNavItem>
-                <CNavLink href="#">Инфо</CNavLink>
+                <CNavLink href="#" >Инфо</CNavLink>
               </CNavItem>
               <CNavItem>
                 <CNavLink onClick={onLogout} active> Выход </CNavLink>
@@ -51,7 +57,7 @@ export default function Profile({ token, onLogout }) {
     </div>
     <div>
       
-      Привет, {user.username}!
+      <ExistingModules />
       
     </div>
     </>
