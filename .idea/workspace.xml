@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e478dc29-d90a-44f7-91d4-e37589e9fc5c" name="Changes" comment="ссылка для перехода к упражнениям">
-      <change beforePath="$PROJECT_DIR$/account-service/backend/auth_project/auth_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/backend/auth_project/auth_project/settings.py" afterDir="false" />
+    <list default="true" id="e478dc29-d90a-44f7-91d4-e37589e9fc5c" name="Changes" comment="рабочий сервис авторизаци">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/backend/auth_project/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/backend/auth_project/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +47,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging auth-service",
+    "git-widget-placeholder": "auth-service",
     "last_opened_file_path": "/Users/kropinovp/PycharmProjects/GestureProject",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
