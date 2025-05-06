@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e478dc29-d90a-44f7-91d4-e37589e9fc5c" name="Changes" comment="ссылка для перехода к упражнениям">
+      <change beforePath="$PROJECT_DIR$/account-service/backend/auth_project/auth_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/backend/auth_project/auth_project/settings.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="Dockerfile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2v81qMUObJg9KdFKglC565B5Ngc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging auth-service",
+    "last_opened_file_path": "/Users/kropinovp/PycharmProjects/GestureProject",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/account-service/frontend/src" />
+      <recent name="$PROJECT_DIR$/account-service" />
+      <recent name="$PROJECT_DIR$/account-service/backend" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-babbdf50b680-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.15989.155" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e478dc29-d90a-44f7-91d4-e37589e9fc5c" name="Changes" comment="" />
+      <created>1743512076940</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743512076940</updated>
+    </task>
+    <task id="LOCAL-00001" summary="added profile-service">
+      <option name="closed" value="true" />
+      <created>1743513298168</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743513298168</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added README.md files in auth-service dir.">
+      <option name="closed" value="true" />
+      <created>1745264666345</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1745264666345</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added some files">
+      <option name="closed" value="true" />
+      <created>1745336397551</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1745336397551</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added navbar on profile page">
+      <option name="closed" value="true" />
+      <created>1745343811332</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1745343811332</updated>
+    </task>
+    <task id="LOCAL-00005" summary="send mail to reset password">
+      <option name="closed" value="true" />
+      <created>1745398678359</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1745398678359</updated>
+    </task>
+    <task id="LOCAL-00006" summary="send mail to reset password">
+      <option name="closed" value="true" />
+      <created>1745408729476</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745408729477</updated>
+    </task>
+    <task id="LOCAL-00007" summary="auth with password reset done!">
+      <option name="closed" value="true" />
+      <created>1746125154709</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746125154709</updated>
+    </task>
+    <task id="LOCAL-00008" summary="added swagger">
+      <option name="closed" value="true" />
+      <created>1746128687454</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746128687454</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added swagger">
+      <option name="closed" value="true" />
+      <created>1746128823443</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746128823443</updated>
+    </task>
+    <task id="LOCAL-00010" summary="добавлена вадлидация форм входа, регистрации, сброса пароля">
+      <option name="closed" value="true" />
+      <created>1746433863471</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746433863471</updated>
+    </task>
+    <task id="LOCAL-00011" summary="ссылка для перехода к упражнениям?">
+      <option name="closed" value="true" />
+      <created>1746458154840</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746458154840</updated>
+    </task>
+    <task id="LOCAL-00012" summary="ссылка для перехода к упражнениям">
+      <option name="closed" value="true" />
+      <created>1746524839395</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1746524839395</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added profile-service" />
+    <MESSAGE value="added auth, register, profile" />
+    <MESSAGE value="added README.md files in auth-service dir." />
+    <MESSAGE value="added some files" />
+    <MESSAGE value="added navbar on profile page" />
+    <MESSAGE value="send mail to reset password" />
+    <MESSAGE value="auth with password reset done!" />
+    <MESSAGE value="added swagger" />
+    <MESSAGE value="добавлена вадлидация форм входа, регистрации, сброса пароля" />
+    <MESSAGE value="ссылка для перехода к упражнениям?" />
+    <MESSAGE value="ссылка для перехода к упражнениям" />
+    <option name="LAST_COMMIT_MESSAGE" value="ссылка для перехода к упражнениям" />
+  </component>
+</project>

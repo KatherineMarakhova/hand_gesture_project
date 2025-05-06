@@ -10,7 +10,7 @@ hands = mp_hands.Hands()
 
 
 def gen_frames():
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
 
     while True:
         success, frame = cap.read()
