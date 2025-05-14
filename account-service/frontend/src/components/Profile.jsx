@@ -19,14 +19,14 @@ export default function Profile({ token, onLogout }) {
   document.title = "Домашняя страница"
 
   useEffect(() => {
-    if (token) {
-      getUser(token).then(res => setUser(res.data));
-    }
-  }, [token])
-  
+    getUser()
+      .then(res => setUser(res.data))
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
 
   if (!user) return <div>Загрузка...</div>;
-  
   
   return (
     <>

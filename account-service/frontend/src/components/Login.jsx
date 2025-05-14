@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { login } from '../api';
+import { useNavigate } from "react-router";
 
 
 export default function Login({ setToken }) {
   const [form, setForm] = useState({ username: '', password: '' });
+  const navigate = useNavigate();
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -11,13 +13,18 @@ export default function Login({ setToken }) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    try {
-      const { data } = await login(form.username, form.password);
-      setToken(data.access);
-      localStorage.setItem('token', data.access);
-    } catch {
-      alert('Ошибка входа');
-    }
+
+      login(form.username, form.password)
+      .then((res) => {
+        localStorage.setItem("token", res.data.access);
+        localStorage.setItem("refresh", res.data.refresh);
+        setToken(res.data.access);
+        navigate("/profile");
+      })
+      .catch((err) => {
+        console.error("Ошибка входа:", err);
+        alert("Неверный логин или пароль");
+      });
   };
 
   return (
