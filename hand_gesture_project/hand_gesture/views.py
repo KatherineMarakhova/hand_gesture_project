@@ -1,58 +1,56 @@
-import cv2
-import mediapipe as mp
-from django.http import StreamingHttpResponse
 from django.shortcuts import render
+from django.http import StreamingHttpResponse
+from hsemotion_onnx.facial_emotions import HSEmotionRecognizer
+import os
+import sys
+import cv2
+import numpy
+from datetime import datetime, timedelta
+import platformdirs
+from lib.centerface import CenterFace
+from lib.i18n import _
+from lib.config import *
+from lib.cam import *
 
 
-mp_drawing = mp.solutions.drawing_utils
-mp_hands = mp.solutions.hands
-hands = mp_hands.Hands()
+def ex_gesture(request):
+    return render(request, 'hand_gesture/ex_gesture.html')
 
 
-def gen_frames():
-    cap = cv2.VideoCapture(0)
-
-    while True:
-        success, frame = cap.read()
-        frame = cv2.flip(frame, 1)
-        if not success:
-            break
-        else:
-            # Обработка изображения с помощью MediaPipe
-            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            results = hands.process(frame_rgb)
-
-            # Рисуем скелет руки
-            if results.multi_hand_landmarks:
-                for idx, handLms in enumerate(results.multi_hand_landmarks):
-
-                    lbl = results.multi_handedness[idx].classification[0].label
-                    print(lbl)
-                for hand_landmarks in results.multi_hand_landmarks:
-                    handness = results.multi_handedness[idx].classification[0].label
-
-                    drawing_spec = mp_drawing.DrawingSpec(color=(0, 0, 255), thickness=3, circle_radius=3)
-                    # mp.solutions.drawing_utils.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-                    mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS, drawing_spec,
-                                              drawing_spec)
-
-            # Кодируем изображение в JPEG
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-
-def video_feed(request):
-    return StreamingHttpResponse(gen_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
-
-
-def index(request):
-    return render(request, 'hand_gesture/index.html')
-
-
-def getting_data(request):
-    hands = request.session.get('hands')
-    print(hands)
-    return render(request, 'hand_gesture/index.html', {'hands': hands})
+# def analyze_emotion(request):
+#     MODEL_NAME = 'enet_b0_8_best_vgaf'
+#     cfg = readcfg()
+#     cam = cam_class(cfg)
+#     wws = False                                             # Warning condition was set
+#     wwact = False                                           # Warning windows was shown flag
+#     wstime = datetime.now()                                 # Warning condition set time
+#
+#     # Set neural networks
+#     centerface = CenterFace()
+#     fer = HSEmotionRecognizer(MODEL_NAME)
+#
+#     ret, cap = cam.find_camera()
+#     if ret is False:
+#         return -1
+#     # TODO: нужно останавливать распознавалку после перехода на другую страницу!
+#     while True:
+#         ret, image_bgr = cam.get_next_frame()
+#         if not ret:
+#             print(_("Can't read camera image"))
+#             return -1
+#         image = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2RGB)
+#         bounding_boxes, ign = centerface(image_bgr, image_bgr.shape[0], image_bgr.shape[1], threshold=0.35)
+#
+#         for i in range(len(bounding_boxes)):
+#             bbox = bounding_boxes[i]
+#             x1, y1, x2, y2 = [round(b) for b in bbox[0:4]]
+#             if (x1 <= 0): x1 = 0
+#             if (y1 <= 0): y1 = 0
+#             if (x2 >= image_bgr.shape[1]): x2 = image_bgr.shape[1] - 1
+#             if (y2 >= image_bgr.shape[0]): y2 = image_bgr.shape[0] - 1
+#
+#             face_img = image[y1:y2, x1:x2]
+#             emotion, scores = fer.predict_emotions(face_img, logits=True)
+#
+#             wws, wwact, wstime = warn_actions(cfg, scores, wws, wwact, wstime)
+#             writestat(cfg, i, scores)

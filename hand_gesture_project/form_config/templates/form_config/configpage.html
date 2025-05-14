@@ -23,7 +23,7 @@
             </div>
             <div class="radio-blocks">
                 <input type="radio" id="multi" name="hands" value="Multi" required>
-                <label for="multi">нейро: обе руки</label>
+                <label for="multi">обе руки</label>
             </div>
 
             <h3>Количество задействованных пальцев</h3>
@@ -60,11 +60,5 @@
             <input class="button-submit" onclick="window.location.href = {% url 'ex_gesture_page' %};" type="submit" value="Начать!" />
         </form>
         <script src="{% static 'form_config/js/index.js' %}"></script>
-
-<!--        <form method="POST">-->
-<!--        {% csrf_token %}-->
-<!--        {{ form.as_p }}-->
-<!--        <button type="submit">Отправить</button>-->
-<!--        </form>-->
     </div>
 {% endblock %}

@@ -5,18 +5,11 @@
     width: 75%;
 }
 
-/*#video, #canvas{*/
-/*    display: block;*/
-/*    border-radius: 6px;*/
-/*    width: 100%;*/
-/*    ransform: scaleX(-1);*/
-/*}*/
-#video {
-    transform: scaleX(-1);
+#video, #canvas {
+    display: block;
+    border-radius: 6px;
+    width: 100%;
 }
-/*img.video{*/
-/*    ransform: scaleX(-1);*/
-/*}*/
 
 .content{
     display: flex;

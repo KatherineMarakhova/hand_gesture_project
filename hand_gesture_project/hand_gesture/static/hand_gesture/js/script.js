@@ -16,7 +16,7 @@ const start_time = new Date();
 var time_interval = setInterval(myTimer, 0);
 
 // ==== HANDS DETECTION PART ====
-let hand_location = localStorage.getItem('hands');                      // Left/Right/Multi
+let hand_location = localStorage.getItem('hands');                    // Left/Right/Multi
 const fingers = parseInt(localStorage.getItem('fingers'));              // 1-5
 const mode = localStorage.getItem('mode');                              // std/rnd
 const exercises = parseInt(localStorage.getItem('exercises'));          // 1-1000
@@ -39,6 +39,8 @@ const more_fingers_list = [16, 24, 28, 31];
 const all_fingers = [16, 8, 4, 1, 3, 6, 9, 12, 17, 20, 24, 28, 31];
 const fist_and_palm = [0, 31];
 const left_right = ["Left", "Right"];
+
+console.log(hand_location);
 
 // Generate exlist - exercises list and hands_location_list - hands location for both hand exercises
 if (hand_location == "Left" || hand_location == "Right"){
@@ -107,6 +109,9 @@ if (hand_location == "Left" || hand_location == "Right"){
     }
 }
 
+console.log(hand_location == "Left");
+//console.log(exlist[0]);
+
 function myTimer() {
     const current_time = new Date();
     let ms = (current_time.getTime() - start_time.getTime());
@@ -125,7 +130,7 @@ hand_location = (hands_location_list.length >= 1)?hands_location_list[0]:hand_lo
 
 outputDivNextval.innerHTML = `Покажите свою <b style="color:${(hand_location == "Left")?'#F39C6B':'#659B5E'}">${(hand_location == "Left")?'левую':'правую'}</b> руку как показано на картинке : `;
 
-const imagePath = 'http://127.0.0.1:8000/static/hand_gesture/hands_img/'+exlist[0]+'.jpg';
+const imagePath = 'http://127.0.0.1:8001/static/hand_gesture/hands_img/'+exlist[0]+'.jpg';
 const imageContainer = document.getElementById('image-container');
 const img = document.createElement('img');
 img.src = imagePath;
@@ -145,7 +150,6 @@ let iter = 0;
 
 // Обработка результатов
 hands.onResults((results) => {
-    print("ЭТО УПРАЖНЕНИЯ", exlist)
     canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
     canvasCtx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
@@ -164,6 +168,8 @@ hands.onResults((results) => {
                 color: handedness != hand_location ? '#00FF00' : '#FF0000',
                 lineWidth: 1
             });
+
+            // TODO: сделать не одновременное распознавание двух рук, а левая-правая поочереди
 
             // Зеркальное распознавание положения рук
             if (handedness != hand_location){
@@ -196,10 +202,11 @@ hands.onResults((results) => {
                         iter+=1;
                         hand_location = (hands_location_list.length >= 1)?hands_location_list[iter]:hand_location;
 
+                        console.log("второе");
                         console.log(hand_location);
                         outputDivNextval.innerHTML = `Покажите свою <b style="color:${(hand_location == "Left")?'#F39C6B':'#659B5E'}">${(hand_location == "Left")?'левую':'правую'}</b> руку как показано на картинке : `;
 
-                        let imagePath = 'http://127.0.0.1:8000/static/hand_gesture/hands_img/'+exlist[iter]+'.jpg';
+                        let imagePath = 'http://127.0.0.1:8001/static/hand_gesture/hands_img/'+exlist[iter]+'.jpg';
                         outputDiv.innerHTML = `Количество оставшихся упражнений: ${exercises - iter}`;
                         const imageContainer = document.getElementById('image-container');
                         const img = document.createElement('img');
