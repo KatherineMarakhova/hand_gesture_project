@@ -1,0 +1,52 @@
+services:
+  # Django backend (account-service)
+  backend:
+    build:
+      context: ./account-service/backend
+    working_dir: /app/auth_project
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./account-service/backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+    networks:
+      - gesture-network
+
+  # React frontend (account-service)
+  frontend:
+    build:
+      context: ./account-service/frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./account-service/frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WDS_SOCKET_PORT=3000
+    stdin_open: true
+    tty: true
+
+  # Hand Gesture Project (Django)
+  hand-gesture:
+    build:
+      context: ./hand_gesture_project
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8001"
+    volumes:
+      - ./hand_gesture_project:/app
+    ports:
+      - "8001:8001"
+    environment:
+      - DEBUG=1
+    networks:
+      - gesture-network
+
+networks:
+  gesture-network:
+    driver: bridge

@@ -1,4 +1,4 @@
-{% extends 'main/base.html' %}
+{% extends 'hand_gesture_project/base.html' %}
 {% load static %}
 {% block head %}
 <meta charset="UTF-8">
@@ -13,18 +13,25 @@
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
 {% endblock %}
 
+{% block link-back %}
+    <a href="{% url 'config_page' %}" class="link-back"> < Назад </a>
+{% endblock %}
+
+
 {% block content %}
 <div class="content">
     <div class="ex-list">
-        <i class='bx bx-smile' id="mood-emoji"></i>
-        <h2 id="header-timer">Упражнения на развитие моторики</h2>
-        <p id="output"></p>
-        <p id="nextval"></p>
+        <div class="text-content">
+            <i class='bx bx-smile' id="mood-emoji"></i>
+            <h2 id="header-timer">Упражнения на развитие моторики</h2>
+            <p id="output"></p>
+            <p id="nextval"></p>
+        </div>
         <div id="image-container"></div>
     </div>
     <div id="notification"></div>
     <div id="container">
-        <canvas id="canvas" width="640" height="480">
+        <canvas id="canvas" width="800" height="600">
             <video id="video" autoplay>
             </video>
         </canvas>

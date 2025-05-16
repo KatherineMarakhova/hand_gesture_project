@@ -2,7 +2,7 @@ const notivication = document.getElementById('notification');           // вс�
 const videoElement = document.getElementById('video');                  // видео-элемент
 const canvasElement = document.getElementById('canvas');                // канва с видео и отрисовкой образов рук
 const canvasCtx = canvasElement.getContext('2d');                       // получаем картинку с канвы
-canvasCtx.translate(600, 0);
+canvasCtx.translate(800, 0);
 canvasCtx.scale(-1, 1);                                                 // зеркалим наше изображение
 
 const outputDiv = document.getElementById('output');
@@ -110,7 +110,6 @@ if (hand_location == "Left" || hand_location == "Right"){
 }
 
 console.log(hand_location == "Left");
-//console.log(exlist[0]);
 
 function myTimer() {
     const current_time = new Date();
@@ -148,17 +147,17 @@ moods["shocked"] = 0;
 
 let iter = 0;
 
-// Обработка результатов
+// Analyse Results
 hands.onResults((results) => {
     canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
     canvasCtx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     if (results.multiHandLandmarks) {
         results.multiHandLandmarks.forEach((landmarks, index) => {
-            // Определение левая или правая рука
+            // Check Left/Right Hand
             const handedness = results.multiHandedness[index].label;
 
-            // Отрисовка точек руки
+            // Dwawing points of hands
             drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
                 color: handedness != hand_location ? '#00FF00' : '#FF0000',
                 lineWidth: 2
@@ -169,9 +168,7 @@ hands.onResults((results) => {
                 lineWidth: 1
             });
 
-            // TODO: сделать не одновременное распознавание двух рук, а левая-правая поочереди
-
-            // Зеркальное распознавание положения рук
+            // Mirror hands detection
             if (handedness != hand_location){
                 var isOpenFingers = {
                     16: landmarks[5].y  > landmarks[4].y,    //thumb   10000
@@ -300,7 +297,7 @@ function get_sum(isOpenFingers){
 }
 
 function show_notification(text, type){
-    // Уведомление через DOM
+    // DOM Notifications
     const notification = document.createElement('div');
     notification.textContent = text;
     var time = 500;
@@ -333,7 +330,7 @@ function show_notification(text, type){
 
     document.body.appendChild(notification);
 
-    // Автоматическое скрытие через time милисекунд
+    // Hide notifications after ms
     setTimeout(() => {
         notification.remove();
     }, time);

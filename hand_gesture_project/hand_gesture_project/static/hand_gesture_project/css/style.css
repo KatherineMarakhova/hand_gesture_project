@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+*{
+    font-family: "Mulish", serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --body-color: #EAF4F4;
+    --sidebar-color: #CCE3DE;
+    --primary-color: #EAF4F4;
+    --primary-color-light: #6B9080;
+    --toggle-color: #EAF4F4;
+    --text-color: #6B9080;
+
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
+
+body{
+    height: 100vh;
+    background: var(--body-color);
+}
+
+/*===== HOME SECTION =====*/
+.home{
+    position: relative;
+    left: 100px;
+    height: 100vh;
+    width: calc(100% - 250px);
+    background: var(--body-color);
+    transition: var(--tran-05);
+}
+
+section.home .text{
+    margin: 30px;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--text-color);
+    padding: 8px 40px;
+}
+
+div.button-div button.btn-main{
+    height: 80px;
+    width: 400px;
+    font-size: 20px;
+    font-weight: 800;
+    background: #F3B61F;
+    border-radius: 6px;
+    margin-top: 300px;
+    margin-left: 30%;
+    border-width: 0;
+}
+
+.button-div a:hover .btn-main {
+    background: #CE8D66;
+    transition: var(--tran-05);
+}
+
+img.icon {
+  width: 10px;
+  border-radius: 5px;
+}
+
+div.link-back-div {
+    margin-top: 30px;
+    background: #BF4342;
+    width: 100px;
+    height: 10px;
+    text-align: center;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 5px;
+}
+
+.link-back {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 15px;
+  outline: none;
+}

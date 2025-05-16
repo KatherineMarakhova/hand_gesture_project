@@ -2,7 +2,8 @@
     float: left;
     color: #2D3047;
     text-align: center;
-    width: 75%;
+    width: 100%;
+    margin: 10px;
 }
 
 #video, #canvas {
@@ -16,8 +17,42 @@
     margin: 20px 50px 20px 50px;
 }
 
-.ex-list, .image-container {
-    flex: 1;
+.ex-list {
+    background-color: #FFFF;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: auto; /* или фиксированная высота */
+}
+
+
+#header-timer {
+    font-size: 2rem; /* Увеличенный размер (примерно 32px) */
+    font-weight: bold;
+}
+
+#output, #nextval {
+    font-size: 1.5rem; /* Примерно 24px */
+    line-height: 1.4; /* Улучшенный межстрочный интервал */
+}
+
+.text-content {
+    flex: 0 0 auto; /* Не растягивается и не сжимается */
+    font-weight: 400;
+}
+
+#image-container {
+    margin-top: 30px;
+    flex: 1 1 auto; /* Занимает все оставшееся пространство */
+    min-height: 0; /* Важно для правильного сжатия в Firefox */
+    overflow: hidden; /* Обрезает содержимое, если нужно */
+    display: flex;
+    align-items: center; /* Центрирование по вертикали */
+    justify-content: center; /* Центрирование по горизонтали */
 }
 
 h2{
@@ -25,26 +60,23 @@ h2{
     font-weight: 700;
 }
 
-div.ex-list{
-    background: #FFFF;
-    display: inline-block;
-    border-radius: 6px;
-    padding: 10px;
-    margin-right: 10px;
-    font-size: 25px;
-    font-weight: 700;
-    float: left;
-    position: relative;
-}
+/*div.ex-list{*/
+/*    background: #FFFF;*/
+/*    display: inline-block;*/
+/*    border-radius: 6px;*/
+/*    padding: 10px;*/
+/*    margin-right: 10px;*/
+/*    font-size: 25px;*/
+/*    font-weight: 700;*/
+/*    float: left;*/
+/*    position: relative;*/
+/*}*/
 
-#image-container{
-    margin-top: 20px;
-}
-
-div.image-container{
+#image-container img {
     position: relative;
-    width: 50%;
-    height: auto;
+    width: 200px;       /* Адаптивность */
+    height: auto;      /* Сохранение пропорций */
+    display: block;    /* Убирает лишние отступы */
 }
 
 @keyframes show {
@@ -62,5 +94,5 @@ body, aside{
 }
 
 #nextval, #output{
-    font-weight: 500;
+    font-weight: 400;
 }

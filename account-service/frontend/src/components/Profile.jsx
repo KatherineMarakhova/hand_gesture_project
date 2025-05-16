@@ -31,9 +31,11 @@ export default function Profile({ token, onLogout }) {
   return (
     <>
     <div>
-      <CNavbar expand="lg" className="bg-body-tertiary">
+      <CNavbar expand="lg" className="bg-body-tertiary navbar">
         <CContainer fluid>
-          <CNavbarBrand href={"/profile"}>Твоя моторика</CNavbarBrand>
+          <CNavbarBrand href={"/profile"} className="">
+            <img src="/img/logo.png" className="icon" alt="logo" />
+          </CNavbarBrand>
           <CNavbarToggler
             aria-label="Toggle navigation"
             aria-expanded={visible}
@@ -48,7 +50,7 @@ export default function Profile({ token, onLogout }) {
                 <CNavLink href="#" >Инфо</CNavLink>
               </CNavItem>
               <CNavItem>
-                <CNavLink onClick={onLogout} active> Выход </CNavLink>
+                <CNavLink className="logout-btn" onClick={onLogout} active> Выход </CNavLink>
               </CNavItem>
             </CNavbarNav>
           </CCollapse>

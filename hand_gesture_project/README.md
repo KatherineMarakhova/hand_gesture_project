@@ -1,23 +1,7 @@
-# Hand Gesture Project
-Разработка сайта - проект выпускной квалификационной работы магистерской программы СПБГУ, основной целью которого является упрощение выполнения упражнений мелкой моторики рук в период на реабилитации пациентов. 
+# Account-Service
+The service implements exercises for fine motor skills by using the MediaPipe library.
+Integrates as microservice in future as base platform for mini-apps for fine motor skills reabilitation. 
 
--------------------
-## Create and Activate Virtual Environment
-```
-$ python -m venv venv
-$ source venv/bin/activate
-```
 
--------------------
-## Install The Requirements
-``` 
-$ pip install -r requirements.txt 
-``` 
-
--------------------
-## Run Server via Manage.py
-``` 
-$ python manage.py runserver
-```
-
+**Use the instructions in **README.md** in the project head.**
 

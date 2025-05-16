@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'hand_gesture_project/css/style.css' %}">
+
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <script src="{% static 'main/js/script.js' %}"></script>
+
+    <section class="home">
+        <div class="link-back-div">
+            {% block link-back %}{% endblock %}
+        </div>
+        {% block content %}
+        {% endblock %}
+    </section>
+
+</body>
+</html>

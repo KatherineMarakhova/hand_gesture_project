@@ -1,23 +1,18 @@
-# --- Stage 1: Сборка React-приложения ---
-FROM node:18-alpine AS build
+# Используем официальный образ Node.js
+FROM node:18-alpine
 
+# Рабочая директория
 WORKDIR /app
 
-COPY package*.json ./
+# Копируем зависимости и устанавливаем их
+COPY package.json package-lock.json ./
 RUN npm install
 
+# Копируем исходный код
 COPY . .
-RUN npm run build
 
+# Открываем порт, который использует React
+EXPOSE 3000
 
-# --- Stage 2: Nginx для отдачи статики ---
-FROM nginx:alpine
-
-# Копируем конфиг Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Копируем собранную React-статику из предыдущего этапа
-COPY --from=build /app/build /usr/share/nginx/html
-
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Запускаем приложение
+CMD ["npm", "start"]
