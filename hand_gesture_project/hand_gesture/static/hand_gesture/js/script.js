@@ -40,8 +40,6 @@ const all_fingers = [16, 8, 4, 1, 3, 6, 9, 12, 17, 20, 24, 28, 31];
 const fist_and_palm = [0, 31];
 const left_right = ["Left", "Right"];
 
-console.log(hand_location);
-
 // Generate exlist - exercises list and hands_location_list - hands location for both hand exercises
 if (hand_location == "Left" || hand_location == "Right"){
     switch (fingers){
@@ -189,7 +187,8 @@ hands.onResults((results) => {
                     timer.innerHTML = end_time;
 
                     if (result){
-                        window.location.href = '/';
+                        window.location.href = 'http://127.0.0.1:8001/form_config/';
+//                        window.location.assign('form_config/');
                         localStorage.clear();
                     } else {
                         window.location.reload();

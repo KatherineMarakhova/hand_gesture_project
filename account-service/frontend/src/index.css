@@ -145,3 +145,19 @@ align-items: center;
   width: 150px;
   border-radius: 5px;
 }
+
+div.apps-modules a.link{
+  border-radius: 5px;
+  display: inline-block;
+  margin: 20px;
+  padding: 15px;
+  background-color:#FCDFA6;
+  font-weight: bold;
+  color: #775144;
+  font-size: 25px;
+}
+
+div.apps-modules a.link:hover{
+  background-color: #A18276;
+  color: #FCDFA6;
+}

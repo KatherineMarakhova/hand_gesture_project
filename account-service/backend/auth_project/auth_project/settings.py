@@ -26,8 +26,8 @@ SECRET_KEY = "django-insecure-h@8!y(b6^ipkeq0w8ja6hosh9fw%q@^e4euevpr_j=4#i8i%*m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -101,9 +101,25 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        'OPTIONS': {
+            'timeout': 20,  # Увеличиваем таймаут для блокировок
+        }
     }
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
